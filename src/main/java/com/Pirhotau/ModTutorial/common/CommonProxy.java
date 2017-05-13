@@ -16,6 +16,7 @@ public class CommonProxy {
 	 */
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
+		System.out.println("CommonProxy.preInit");
 		ModTutorialItems.createItems();
 	}
 
@@ -25,6 +26,7 @@ public class CommonProxy {
 	 */
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
+		System.out.println("CommonProxy.init");
 		
 	}
 	
@@ -33,6 +35,7 @@ public class CommonProxy {
 	 */
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
+		System.out.println("CommonProxy.postInit");
 
 	}
 }

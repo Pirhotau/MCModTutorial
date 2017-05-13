@@ -15,7 +15,8 @@ public class ServerProxy extends CommonProxy {
 	 */
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		
+		System.out.println("ServerProxy.preInit");
+		super.preInit(event);
 	}
 
 	/*
@@ -24,7 +25,8 @@ public class ServerProxy extends CommonProxy {
 	 */
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
-		
+		System.out.println("ServerProxy.init");
+		super.init(event);
 	}
 	
 	/*
@@ -32,6 +34,7 @@ public class ServerProxy extends CommonProxy {
 	 */
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
-
+		System.out.println("ServerProxy.postInit");
+		super.postInit(event);
 	}
 }

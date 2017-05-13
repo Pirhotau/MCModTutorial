@@ -11,6 +11,6 @@ public class ModTutorialItems {
 	public static Item debugItem;
 
 	public static void createItems() {
-		GameRegistry.registerItem(debugItem = new ItemDebug(), ItemDebug.unlocalizedName);
+		debugItem = new ItemDebug();
 	}
 }

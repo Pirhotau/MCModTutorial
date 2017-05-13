@@ -15,7 +15,10 @@ public class ClientProxy extends CommonProxy {
 	 */
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
+		System.out.println("ClientProxy.preInit");
+		super.preInit(event);
 		
+		ItemRenderRegister.registerItemRenderer();
 	}
 
 	/*
@@ -24,9 +27,10 @@ public class ClientProxy extends CommonProxy {
 	 */
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
+		System.out.println("ClientProxy.init");
 		super.init(event);
 		
-		ItemRenderRegister.registerItemRenderer();
+		
 	}
 	
 	/*
@@ -34,6 +38,7 @@ public class ClientProxy extends CommonProxy {
 	 */
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
-
+		System.out.println("ClientProxy.postInit");
+		super.postInit(event);
 	}
 }
