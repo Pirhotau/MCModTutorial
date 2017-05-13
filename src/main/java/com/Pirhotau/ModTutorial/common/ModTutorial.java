@@ -1,14 +1,16 @@
 package com.Pirhotau.ModTutorial.common;
 
+import com.Pirhotau.ModTutorial.proxy.CommonProxy;
+
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
+import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 @Mod(modid = ModTutorial.MODID, name = ModTutorial.MOD_NAME, version = ModTutorial.VERSION)
-
 public class ModTutorial {
 	public static final String MODID = "modtutorial";
 	public static final String MOD_NAME = "Tutorial mod";
@@ -17,6 +19,11 @@ public class ModTutorial {
 	@Instance(MODID)
 	public static ModTutorial instance;
 
+	@SidedProxy(
+			clientSide = "com.Pirhotau.ModTutorial.proxy.ClientProxy",
+			serverSide = "com.Pirhotau.ModTutorial.proxy.CommonProxy")
+	public static CommonProxy proxy;
+	
 	/*
 	 * Read config file
 	 * Register blocks and items
@@ -32,7 +39,7 @@ public class ModTutorial {
 	 */
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
-
+		proxy.registerRender();
 	}
 	
 	/*
