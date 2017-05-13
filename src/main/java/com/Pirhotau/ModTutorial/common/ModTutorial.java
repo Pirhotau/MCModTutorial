@@ -1,7 +1,8 @@
 package com.Pirhotau.ModTutorial.common;
 
-import com.Pirhotau.ModTutorial.proxy.CommonProxy;
+import com.Pirhotau.ModTutorial.items.ItemDebug;
 
+import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -15,38 +16,45 @@ public class ModTutorial {
 	public static final String MODID = "modtutorial";
 	public static final String MOD_NAME = "Tutorial mod";
 	public static final String VERSION = "0.0.1";
+	
+	/*
+	 * Items
+	 */
+	public static Item itemDebug;
+	
+	/*
+	 * Blocks
+	 */
 
+	/*
+	 * Mod instance
+	 */
 	@Instance(MODID)
 	public static ModTutorial instance;
 
+	/*
+	 * Mod proxy
+	 */
 	@SidedProxy(
-			clientSide = "com.Pirhotau.ModTutorial.proxy.ClientProxy",
-			serverSide = "com.Pirhotau.ModTutorial.proxy.CommonProxy")
+			clientSide = "com.Pirhotau.ModTutorial.common.ClientProxy",
+			serverSide = "com.Pirhotau.ModTutorial.common.ServerProxy")
 	public static CommonProxy proxy;
 	
 	/*
-	 * Read config file
-	 * Register blocks and items
+	 * Call the right proxy
 	 */
 	@EventHandler
-	public void preInit(FMLPreInitializationEvent event) {
-
+	public void preInit(FMLPreInitializationEvent e) {
+	    this.proxy.preInit(e);
 	}
 
-	/*
-	 * Register events
-	 * Register recipes
-	 */
 	@EventHandler
-	public void init(FMLInitializationEvent event) {
-		proxy.registerRender();
+	public void init(FMLInitializationEvent e) {
+	    this.proxy.init(e);
 	}
-	
-	/*
-	 * Interaction with other mods
-	 */
-	@EventHandler
-	public void postInit(FMLPostInitializationEvent event) {
 
+	@EventHandler
+	public void postInit(FMLPostInitializationEvent e) {
+	    this.proxy.postInit(e);
 	}
 }
