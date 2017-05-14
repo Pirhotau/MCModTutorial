@@ -2,6 +2,7 @@ package com.Pirhotau.ModTutorial.common;
 
 import com.Pirhotau.ModTutorial.items.ItemDebug;
 
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -36,7 +37,7 @@ public class ModTutorial {
 	 */
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent e) {
-	    this.proxy.preInit(e);
+		this.proxy.preInit(e);
 	}
 
 	@EventHandler

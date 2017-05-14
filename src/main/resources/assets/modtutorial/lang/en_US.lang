@@ -1,2 +1,5 @@
 item.debug.name=Debug item
 tile.mineblock.name=Mine block
+tile.pifurnace.name=Pirhotau's powerful furnace
+
+itemGroup.Tutorial mod=Pi's mod

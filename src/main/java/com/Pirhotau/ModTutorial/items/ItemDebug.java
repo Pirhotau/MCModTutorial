@@ -1,5 +1,6 @@
 package com.Pirhotau.ModTutorial.items;
 
+import crafting.ModTutorialCreativeTab;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -22,7 +23,7 @@ public final class ItemDebug extends Item {
 	public ItemDebug() {
 		super();
 		setUnlocalizedName(name);
-		setCreativeTab(CreativeTabs.TOOLS);
+		setCreativeTab(ModTutorialCreativeTab.piCreativeTab);
 		setMaxStackSize(1);
 		
 		this.setRegistryName(name);
