@@ -37,7 +37,12 @@ public final class ItemDebug extends Item {
 	@Override
 	public EnumActionResult onItemUse(ItemStack stack, EntityPlayer playerIn, World worldIn, BlockPos pos,
 			EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		if(!worldIn.isRemote) playerIn.addChatComponentMessage(new TextComponentString(worldIn.getBlockState(pos).getBlock().getLocalizedName()));
+		if(!worldIn.isRemote) {
+			String msg = new String();
+			
+			msg += worldIn.getBlockState(pos).getBlock().getLocalizedName();
+			playerIn.addChatComponentMessage(new TextComponentString(msg));
+		}
 		return super.onItemUse(stack, playerIn, worldIn, pos, hand, facing, hitX, hitY, hitZ);
 	}
 	

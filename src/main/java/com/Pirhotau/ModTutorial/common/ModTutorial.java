@@ -36,19 +36,16 @@ public class ModTutorial {
 	 */
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent e) {
-		System.out.println("ModTutorial.preInit");
 	    this.proxy.preInit(e);
 	}
 
 	@EventHandler
 	public void init(FMLInitializationEvent e) {
-		System.out.println("ModTutorial.init");
 	    this.proxy.init(e);
 	}
 
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent e) {
-		System.out.println("ModTutorial.postInit");
 	    this.proxy.postInit(e);
 	}
 }

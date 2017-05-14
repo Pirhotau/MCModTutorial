@@ -1,5 +1,6 @@
 package com.Pirhotau.ModTutorial.common;
 
+import com.Pirhotau.ModTutorial.blocks.ModTutorialBlocks;
 import com.Pirhotau.ModTutorial.items.ItemDebug;
 import com.Pirhotau.ModTutorial.items.ModTutorialItems;
 
@@ -16,8 +17,8 @@ public class CommonProxy {
 	 */
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		System.out.println("CommonProxy.preInit");
 		ModTutorialItems.createItems();
+		ModTutorialBlocks.createBlocks();
 	}
 
 	/*
@@ -26,7 +27,6 @@ public class CommonProxy {
 	 */
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
-		System.out.println("CommonProxy.init");
 		
 	}
 	
@@ -35,7 +35,6 @@ public class CommonProxy {
 	 */
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
-		System.out.println("CommonProxy.postInit");
 
 	}
 }

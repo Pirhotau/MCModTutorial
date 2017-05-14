@@ -24,9 +24,7 @@ public final class ItemRenderRegister {
 	 * @param item
 	 */
 	private static void register(Item item) {
-		System.out.println(" - "+item.getRegistryName());
 		ModelResourceLocation mrl = new ModelResourceLocation(item.getRegistryName().toString(), "inventory");
 		ModelLoader.setCustomModelResourceLocation(item, 0, mrl);
-		//Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, 0, mrl);
 	}
 }
