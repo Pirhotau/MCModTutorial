@@ -4,6 +4,7 @@ import com.Pirhotau.ModTutorial.blocks.ModTutorialBlocks;
 import com.Pirhotau.ModTutorial.items.ItemDebug;
 import com.Pirhotau.ModTutorial.items.ModTutorialItems;
 
+import crafting.ModTutorialCrafting;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -27,7 +28,7 @@ public class CommonProxy {
 	 */
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
-		
+		ModTutorialCrafting.createRecipes();
 	}
 	
 	/*
