@@ -1,0 +1,18 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "modtutorial:items/debug"
+    },
+	"display": {
+        "thirdperson_righthand": {
+			"rotation": [ 0, 92, 68 ],
+			"translation": [ 0.00, 5.50, 1.25 ],
+			"scale": [ 1.00, 1.00, 1.00 ]
+		},
+		"firstperson_righthand": {
+			"rotation": [ 354, 294, 84 ],
+			"translation": [ 0.00, 3.50, 0.00 ],
+			"scale": [ 0.60, 0.60, 0.60 ]
+		}
+    }
+}

@@ -1,0 +1,37 @@
+{
+    "parent": "block/orientable",
+    "textures": {
+        "up": "modtutorial:blocks/pifurnace_top",
+		"down": "modtutorial:blocks/pifurnace_top",
+		"north": "modtutorial:blocks/pifurnace_front_off",
+		"east": "modtutorial:blocks/pifurnace_side",
+		"south": "modtutorial:blocks/pifurnace_side",
+		"west": "modtutorial:blocks/pifurnace_side",
+		"particle": "modtutorial:blocks/pifurnace_top"
+    },
+	 "variants": {
+		"normal": {
+			"model": "orientable"
+		},
+		"inventory": {
+			"model": "orientable"
+		},
+		"facing": {
+			"north": {
+				"model": "orientable"
+			},
+			"south": {
+				"model": "orientable",
+				"y": 180
+			},
+			"west": {
+				"model": "orientable",
+					"y": 270
+			},
+			"east": {
+				"model": "orientable",
+					"y": 90
+			}
+		}
+	}
+}

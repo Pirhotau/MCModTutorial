@@ -1,0 +1,12 @@
+{
+    "parent": "block/cube",
+    "textures": {
+        "up": "modtutorial:blocks/cooker_top",
+		"down": "modtutorial:blocks/cooker_top",
+		"north": "modtutorial:blocks/cooker_front_off",
+		"east": "modtutorial:blocks/cooker_side",
+		"south": "modtutorial:blocks/cooker_side",
+		"west": "modtutorial:blocks/cooker_side",
+		"particle": "modtutorial:blocks/cooker_top"
+    }
+}
