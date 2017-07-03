@@ -60,7 +60,7 @@ public abstract class BlockTileEntity<TE extends TileEntity> extends BasicBlock 
 	public abstract TE createTileEntity(World world, IBlockState state);
 
 	@Override
-	public BlockTileEntity register() {
+	public BlockTileEntity<TE> register() {
 		GameRegistry.register(this);
 		GameRegistry.register(new ItemBlock(this), getRegistryName());
 		GameRegistry.registerTileEntity(getTileEntityClass(), getRegistryName().toString());
