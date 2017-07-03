@@ -2,8 +2,10 @@ package com.Pirhotau.ModTutorial.blocks.cooker;
 
 import com.Pirhotau.ModTutorial.blocks.BlockTileEntity;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -16,10 +18,14 @@ import net.minecraft.world.World;
 public class BlockCooker extends BlockTileEntity {
 	
 	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
+	public static final PropertyBool ACTIVATED = PropertyBool.create("activated");
 	
 	public BlockCooker() {
 		super("cooker");
-		this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+		this.setDefaultState(this.blockState.getBaseState()
+				.withProperty(FACING, EnumFacing.NORTH)
+				.withProperty(ACTIVATED, Boolean.valueOf(false)
+				));
 	}
 	
 	
@@ -29,7 +35,7 @@ public class BlockCooker extends BlockTileEntity {
 	 * -------------------------------------------------------------------------------------------
 	 */
 	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, new IProperty[]{FACING});
+		return new BlockStateContainer(this, new IProperty[]{FACING, ACTIVATED});
 	}
 	
 	@Override
@@ -54,6 +60,34 @@ public class BlockCooker extends BlockTileEntity {
 	 */
 	
 	
+	/*
+	 * -------------------------------------------------------------------------------------------
+	 * 						BLOCK ACTIVATION
+	 * -------------------------------------------------------------------------------------------
+	 */
+	@Override
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
+		if(worldIn.isBlockPowered(pos)) {
+			worldIn.setBlockState(pos, state.withProperty(ACTIVATED, Boolean.valueOf(true)));
+		}
+		else {
+			worldIn.setBlockState(pos, state.withProperty(ACTIVATED, Boolean.valueOf(false)));
+		}
+	}
+	
+	/*
+	 * -------------------------------------------------------------------------------------------
+	 * 						END BLOCK ACTIVATION
+	 * -------------------------------------------------------------------------------------------
+	 */
+	
+	
+	
+	/*
+	 * -------------------------------------------------------------------------------------------
+	 * 						TILE ENTITY
+	 * -------------------------------------------------------------------------------------------
+	 */
 	@Override
 	public Class<TileEntityCooker> getTileEntityClass() {
 		return TileEntityCooker.class;
@@ -63,4 +97,9 @@ public class BlockCooker extends BlockTileEntity {
 	public TileEntityCooker createTileEntity(World world, IBlockState state) {
 		return new TileEntityCooker();
 	}
+	/*
+	 * -------------------------------------------------------------------------------------------
+	 * 						END TILE ENTITY
+	 * -------------------------------------------------------------------------------------------
+	 */
 }
