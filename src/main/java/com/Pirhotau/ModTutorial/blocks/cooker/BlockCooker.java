@@ -45,7 +45,7 @@ public class BlockCooker extends BlockTileEntity {
 	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,
 			ItemStack stack) {
-		super.onBlockPlacedBy(worldIn, pos, state.withProperty(FACING, placer.getHorizontalFacing()), placer, stack);
+		worldIn.setBlockState(pos, state.withProperty(FACING, placer.getHorizontalFacing().getOpposite()));
 	}
 	/*
 	 * -------------------------------------------------------------------------------------------
