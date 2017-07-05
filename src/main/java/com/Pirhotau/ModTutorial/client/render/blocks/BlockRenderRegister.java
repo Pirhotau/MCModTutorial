@@ -14,6 +14,7 @@ public class BlockRenderRegister {
 		register(ModTutorialBlocks.mineBlock);
 		register(ModTutorialBlocks.piFurnace);
 		register(ModTutorialBlocks.cooker);
+		register(ModTutorialBlocks.laserprinter);
 	}
 	
 	public static void register(Block block) {

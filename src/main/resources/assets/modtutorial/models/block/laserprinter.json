@@ -1,0 +1,19 @@
+{
+    "parent": "block/cube",
+    "textures": {
+        "up": "modtutorial:blocks/laserprinter_top",
+		"down": "modtutorial:blocks/laserprinter_top",
+		"north": "modtutorial:blocks/laserprinter_front_top",
+		"east": "modtutorial:blocks/laserprinter_side",
+		"south": "modtutorial:blocks/laserprinter_side",
+		"west": "modtutorial:blocks/laserprinter_side",
+		"particle": "modtutorial:blocks/laserprinter_front_top"
+    },
+	"display": {
+		"firstperson_righthand": {
+			"rotation": [ 0, 210, 0 ],
+			"translation": [ 0.00, 1.75, 0.00 ],
+			"scale": [ 0.40, 0.40, 0.40 ]
+		}
+	}
+}
