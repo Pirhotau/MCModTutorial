@@ -1,0 +1,12 @@
+{
+    "parent": "block/cube",
+    "textures": {
+        "up": "modtutorial:blocks/laserprinter_top",
+		"down": "modtutorial:blocks/laserprinter_bottom",
+		"north": "modtutorial:blocks/laserprinter_front_bottom",
+		"east": "modtutorial:blocks/laserprinter_side_bottom",
+		"south": "modtutorial:blocks/laserprinter_side_bottom",
+		"west": "modtutorial:blocks/laserprinter_side_bottom",
+		"particle": "modtutorial:blocks/laserprinter_top"
+    }
+}

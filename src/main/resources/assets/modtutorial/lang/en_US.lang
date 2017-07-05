@@ -2,4 +2,5 @@ item.debug.name=Debug item
 tile.mineblock.name=Mine block
 tile.pifurnace.name=Pirhotau's powerful furnace
 tile.cooker.name=Cooker
+tile.laserprinter.name=Laser printer
 itemGroup.Tutorial mod=Pi's mod

@@ -1,0 +1,18 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"model": "modtutorial:laserprinter"
+	},
+	"variants": {
+		"normal": {"model": "modtutorial:laserprinter", "y": 90},
+		"inventory": {"model": "modtutorial:laserprinter", "y": 90},
+		"facing=north,position=bottom": {"model": "modtutorial:laserprinter_bottom"},
+		"facing=south,position=bottom": {"model": "modtutorial:laserprinter_bottom", "y": 180},
+		"facing=west,position=bottom": {"model": "modtutorial:laserprinter_bottom", "y": 270},
+		"facing=east,position=bottom": {"model": "modtutorial:laserprinter_bottom", "y": 90},
+		"facing=north,position=top": {"model": "modtutorial:laserprinter_top"},
+		"facing=south,position=top": {"model": "modtutorial:laserprinter_top", "y": 180},
+		"facing=west,position=top": {"model": "modtutorial:laserprinter_top", "y": 270},
+		"facing=east,position=top": {"model": "modtutorial:laserprinter_top", "y": 90}
+	}
+}
