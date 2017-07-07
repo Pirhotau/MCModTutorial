@@ -1,10 +1,10 @@
 package com.Pirhotau.ModTutorial.common;
 
 import com.Pirhotau.ModTutorial.blocks.ModTutorialBlocks;
+import com.Pirhotau.ModTutorial.crafting.ModTutorialCrafting;
 import com.Pirhotau.ModTutorial.items.ItemDebug;
 import com.Pirhotau.ModTutorial.items.ModTutorialItems;
 
-import crafting.ModTutorialCrafting;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;

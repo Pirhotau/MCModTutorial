@@ -2,7 +2,6 @@ package com.Pirhotau.ModTutorial.blocks.laserprinter;
 
 import com.Pirhotau.ModTutorial.blocks.BlockTileEntity;
 
-import net.minecraft.block.BlockDirt;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyEnum;
@@ -59,29 +58,18 @@ public class BlockLaserPrinter extends BlockTileEntity {
 	}
 	
 	
+	public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
+		return pos.getY() >= worldIn.getHeight() - 1 ? false : super.canPlaceBlockAt(worldIn, pos) && super.canPlaceBlockAt(worldIn, pos.up());		
+	}
 	
 	
 	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,
 			ItemStack stack) {
-		if((EnumLaserPrinter) state.getValue(POSITION) == EnumLaserPrinter.BOTTOM) {
-			// Check if there is 2 available blocks
-			BlockPos topPos = pos.add(0, 1, 0);
-			
-			if(worldIn.getBlockState(topPos) == Blocks.AIR.getDefaultState()) {
-				worldIn.setBlockState(pos, state.withProperty(FACING, placer.getHorizontalFacing().getOpposite()));
-				
-				IBlockState topState = state.withProperty(POSITION, EnumLaserPrinter.TOP).withProperty(FACING, placer.getHorizontalFacing().getOpposite());
-				worldIn.setBlockState(topPos, topState, 3);
-			} else {
-				worldIn.setBlockToAir(pos);
-				
-				if(stack != null) {
-					stack.stackSize ++;
-				} else {
-					stack = new ItemStack(this, 1);
-				}
-			}
+		if((EnumLaserPrinter) state.getValue(POSITION) == EnumLaserPrinter.BOTTOM) {			
+			worldIn.setBlockState(pos, state.withProperty(FACING, placer.getHorizontalFacing().getOpposite()));			
+			IBlockState topState = state.withProperty(POSITION, EnumLaserPrinter.TOP).withProperty(FACING, placer.getHorizontalFacing().getOpposite());
+			worldIn.setBlockState(pos.up(), topState, 3);
 		}
 	}
 	/*
@@ -95,12 +83,12 @@ public class BlockLaserPrinter extends BlockTileEntity {
 	public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state) {
 		
 		if((EnumLaserPrinter) state.getValue(POSITION) == EnumLaserPrinter.BOTTOM) {
-			if(worldIn.getBlockState(pos.add(0, 1, 0)).getBlock() == this) {
-				worldIn.setBlockToAir(pos.add(0, 1, 0));
+			if(worldIn.getBlockState(pos.up()).getBlock() == this) {
+				worldIn.setBlockToAir(pos.up());
 			}			
 		} else {
-			if(worldIn.getBlockState(pos.add(0, -1, 0)).getBlock() == this) {
-				worldIn.setBlockToAir(pos.add(0, -1, 0));
+			if(worldIn.getBlockState(pos.down()).getBlock() == this) {
+				worldIn.setBlockToAir(pos.down());
 			}
 		}
 		
