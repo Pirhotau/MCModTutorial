@@ -15,12 +15,16 @@ import net.minecraft.block.Block;
 public final class ModTutorialBlocks {
 	
 	public static Block mineBlock;
+	public static Block titaniumOre;
+	
 	public static Block piFurnace;
 	public static Block cooker;
 	public static Block laserprinter;
 	
 	public static void createBlocks() {
 		mineBlock = (new BasicBlock("mineblock")).register();
+		titaniumOre = (new BasicBlock("titanium_ore")).register();
+		
 		piFurnace = (new BlockPifurnace()).register();
 		cooker = (new BlockCooker()).register();
 		laserprinter = (new BlockLaserPrinter()).register();

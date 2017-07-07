@@ -1,5 +1,7 @@
 package com.Pirhotau.ModTutorial.client.render.items;
 
+import java.util.LinkedList;
+
 import org.lwjgl.Sys;
 
 import com.Pirhotau.ModTutorial.common.ModTutorial;
@@ -12,11 +14,21 @@ import net.minecraft.item.Item;
 import net.minecraftforge.client.model.ModelLoader;
 
 public final class ItemRenderRegister {
+	
+	private static LinkedList<Item> listItems = new LinkedList<Item>();
+	
 	/**
 	 * Register each item, one by one
 	 */
 	public static void registerItemRenderer() {
+		/*
 		register(ModTutorialItems.debugItem);
+		register(ModTutorialItems.titaniumDioxyde);
+		register(ModTutorialItems.titaniumFragment);
+		register(ModTutorialItems.titaniumIngot);*/
+		for(Item item : listItems) {
+			register(item);
+		}
 	}
 	
 	/**
@@ -26,5 +38,10 @@ public final class ItemRenderRegister {
 	private static void register(Item item) {
 		ModelResourceLocation mrl = new ModelResourceLocation(item.getRegistryName().toString(), "inventory");
 		ModelLoader.setCustomModelResourceLocation(item, 0, mrl);
+	}
+	
+	
+	public static void addItemToRenderRegister(Item item) {
+		listItems.add(item);
 	}
 }
