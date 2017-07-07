@@ -6,4 +6,5 @@ tile.mineblock.name=Mine block
 tile.titanium_ore.name=Rutile
 tile.pifurnace.name=Pirhotau's powerful furnace
 tile.cooker.name=Cooker
+tile.laserprinter.name=Laser printer
 itemGroup.Tutorial mod=Pi's mod
