@@ -1,5 +1,7 @@
 package com.Pirhotau.ModTutorial.items;
 
+import com.Pirhotau.ModTutorial.client.render.items.ItemRenderRegister;
+
 import crafting.ModTutorialCreativeTab;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -27,7 +29,8 @@ public final class ItemDebug extends Item {
 		setMaxStackSize(1);
 		
 		this.setRegistryName(name);
-		GameRegistry.register(this);		
+		GameRegistry.register(this);
+		ItemRenderRegister.addItemToRenderRegister(this);
 	}
 	
 	@Override
