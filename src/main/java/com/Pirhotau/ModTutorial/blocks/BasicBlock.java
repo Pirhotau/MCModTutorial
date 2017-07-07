@@ -56,8 +56,6 @@ public class BasicBlock extends Block {
 		GameRegistry.register(this);
 		GameRegistry.register(new ItemBlock(this), getRegistryName());
 		
-		BlockRenderRegister.addBlockToRenderRegister(this);
-		
 		return this;
 	}
 }
