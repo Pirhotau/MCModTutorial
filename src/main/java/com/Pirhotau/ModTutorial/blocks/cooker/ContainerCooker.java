@@ -16,8 +16,7 @@ public class ContainerCooker extends Container {
 	public ContainerCooker(IInventory playerInv, TileEntityCooker te) {
 		this.te = te;
 
-		//IItemHandler handler = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
-		IItemHandler handler = te.getPrivateInventory();
+		IItemHandler handler = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
 		
 		this.addSlotToContainer(new SlotItemHandler(handler, 0, 62, 35));
 		this.addSlotToContainer(new SlotItemHandler(handler, 1, 98, 35));

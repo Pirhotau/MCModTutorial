@@ -2,7 +2,8 @@ package com.Pirhotau.ModTutorial.blocks.cooker;
 
 import javax.annotation.Nullable;
 
-import com.Pirhotau.ModTutorial.blocks.IPrivateInventory;
+import com.Pirhotau.Utils.customcapabilities.AdvancedItemStackHandler;
+import com.Pirhotau.Utils.customcapabilities.StackConstraintFuel;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -11,11 +12,22 @@ import net.minecraft.util.ITickable;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
-public class TileEntityCooker extends TileEntity implements ITickable, IPrivateInventory {
+public class TileEntityCooker extends TileEntity implements ITickable, ICapabilityProvider {
 	
-	private ItemStackHandler inventory = new ItemStackHandler(2);
+	private AdvancedItemStackHandler inventory;
+	
+	public TileEntityCooker() {
+		super();
+		inventory = new AdvancedItemStackHandler(2);
+		
+		
+			//inventory.addConstraint(new StackConstraintFuel(), 1);
+		
+		
+	}
 	
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
@@ -36,16 +48,8 @@ public class TileEntityCooker extends TileEntity implements ITickable, IPrivateI
 	public void update() {
 		
 	}
-
 	
 	
-	@Override
-	public ItemStackHandler getPrivateInventory() {
-		return inventory;
-	}
-	
-	
-	/*
 	@Override
 	public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
 		return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
@@ -53,8 +57,10 @@ public class TileEntityCooker extends TileEntity implements ITickable, IPrivateI
 	
 	@Nullable
 	@Override
-	public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
+	public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {		
 		return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY ? (T)inventory : super.getCapability(capability, facing);
-	}*/
+	}
+	
+	
 
 }
