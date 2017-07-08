@@ -3,7 +3,7 @@ package com.Pirhotau.ModTutorial.blocks.cooker;
 import javax.annotation.Nullable;
 
 import com.Pirhotau.Utils.customcapabilities.AdvancedItemStackHandler;
-import com.Pirhotau.Utils.customcapabilities.StackConstraintFuel;
+import com.Pirhotau.Utils.gui.IProgress;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -12,21 +12,18 @@ import net.minecraft.util.ITickable;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
 
-public class TileEntityCooker extends TileEntity implements ITickable, ICapabilityProvider {
+public class TileEntityCooker extends TileEntity implements ITickable, ICapabilityProvider, IProgress {
 	
 	private AdvancedItemStackHandler inventory;
+	
+	private static int COOKING_TIME = 200;
+	private static int timer;
 	
 	public TileEntityCooker() {
 		super();
 		inventory = new AdvancedItemStackHandler(2);
-		
-		
-			//inventory.addConstraint(new StackConstraintFuel(), 1);
-		
-		
+		timer = 0;
 	}
 	
 	@Override
@@ -42,11 +39,18 @@ public class TileEntityCooker extends TileEntity implements ITickable, ICapabili
 	}
 
 	
-	
-	
 	@Override
 	public void update() {
-		
+		if(!worldObj.isRemote) {
+			++timer;
+			timer %= COOKING_TIME;
+			
+			this.markDirty();
+		}	
+	}
+	
+	public int getProgress() {
+		return timer * 100 / COOKING_TIME;
 	}
 	
 	
