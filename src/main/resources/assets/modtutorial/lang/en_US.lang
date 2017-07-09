@@ -2,6 +2,7 @@ item.debug.name=Debug item
 item.titanium_dioxyde.name=Titanium dioxyde
 item.titanium_fragment.name=Titanium fragment
 item.titanium_ingot.name=Titanium ingot
+item.titanium_powder.name=Titanium powder
 tile.mineblock.name=Mine block
 tile.titanium_ore.name=Rutile
 tile.pifurnace.name=Pirhotau's powerful furnace

@@ -19,7 +19,6 @@ public class ModGuiHandler implements IGuiHandler {
 
 	@Override
 	public Container getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		System.out.println("x, y, z " + x + " " + y + " " + z);
 		switch(ID) {
 			case COOKER:
 				return new ContainerCooker(player.inventory, (TileEntityCooker)world.getTileEntity(new BlockPos(x, y, z)));

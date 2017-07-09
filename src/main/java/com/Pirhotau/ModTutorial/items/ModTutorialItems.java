@@ -11,12 +11,13 @@ public class ModTutorialItems {
 	public static Item titaniumDioxyde;
 	public static Item titaniumFragment;
 	public static Item titaniumIngot;
+	public static Item titaniumPowder;
 
 	public static void createItems() {
 		debugItem = new ItemDebug();
 		titaniumDioxyde = new BasicItem("titanium_dioxyde");
 		titaniumFragment = new BasicItem("titanium_fragment");
 		titaniumIngot = new BasicItem("titanium_ingot");
-		
+		titaniumPowder = new BasicItem("titanium_powder");
 	}
 }
