@@ -35,7 +35,7 @@ public class GuiLaserPrinter extends GuiContainer {
 	
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-		String name = I18n.format(ModTutorialBlocks.cooker.getUnlocalizedName() + ".name");
+		String name = I18n.format(ModTutorialBlocks.laserprinter.getUnlocalizedName() + ".name");
 		fontRendererObj.drawString(name, xSize / 2 - fontRendererObj.getStringWidth(name) / 2, 6, 0x404040);
 		fontRendererObj.drawString(playerInv.getDisplayName().getUnformattedText(), 8, ySize - 94, 0x404040);
 	}

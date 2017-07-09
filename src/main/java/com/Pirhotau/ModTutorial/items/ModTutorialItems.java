@@ -12,6 +12,10 @@ public class ModTutorialItems {
 	public static Item titaniumFragment;
 	public static Item titaniumIngot;
 	public static Item titaniumPowder;
+	public static Item build;
+	public static Item laserSource;
+	public static Item heatShield;
+	public static Item usbStick;
 
 	public static void createItems() {
 		debugItem = new ItemDebug();
@@ -19,5 +23,9 @@ public class ModTutorialItems {
 		titaniumFragment = new BasicItem("titanium_fragment");
 		titaniumIngot = new BasicItem("titanium_ingot");
 		titaniumPowder = new BasicItem("titanium_powder");
+		build = new BasicItem("build");
+		laserSource = new BasicItem("laser_source");
+		heatShield = new BasicItem("heat_shield");
+		usbStick = new BasicItem("usb_stick");
 	}
 }
