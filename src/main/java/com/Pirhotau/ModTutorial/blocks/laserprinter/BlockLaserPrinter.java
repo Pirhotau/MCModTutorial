@@ -1,6 +1,8 @@
 package com.Pirhotau.ModTutorial.blocks.laserprinter;
 
 import com.Pirhotau.ModTutorial.blocks.BlockTileEntity;
+import com.Pirhotau.ModTutorial.common.ModTutorial;
+import com.Pirhotau.ModTutorial.handler.ModGuiHandler;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
@@ -20,8 +22,8 @@ import net.minecraft.world.World;
 
 public class BlockLaserPrinter extends BlockTileEntity {
 
-	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
-	public static final PropertyEnum POSITION = PropertyEnum.create("position", EnumLaserPrinter.class);
+	protected static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
+	protected static final PropertyEnum POSITION = PropertyEnum.create("position", EnumLaserPrinter.class);
 
 	public BlockLaserPrinter() {
 		super("laserprinter");
@@ -101,6 +103,18 @@ public class BlockLaserPrinter extends BlockTileEntity {
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+		if(!worldIn.isRemote) {
+			if(state.getValue(POSITION) == EnumLaserPrinter.BOTTOM 
+					&& worldIn.getBlockState(pos.up()).getBlock() == this 
+					&& worldIn.getBlockState(pos.up()).getValue(POSITION) == EnumLaserPrinter.TOP) {
+				playerIn.openGui(ModTutorial.instance, ModGuiHandler.LASER_PRINTER, worldIn, pos.getX(), pos.getY(), pos.getZ());
+			}
+			else if(state.getValue(POSITION) == EnumLaserPrinter.TOP
+					&& worldIn.getBlockState(pos.down()).getBlock() == this
+					&& worldIn.getBlockState(pos.down()).getValue(POSITION) == EnumLaserPrinter.BOTTOM) {
+				playerIn.openGui(ModTutorial.instance, ModGuiHandler.LASER_PRINTER, worldIn, pos.down().getX(), pos.down().getY(), pos.down().getZ());
+			}
+		}
 		return super.onBlockActivated(worldIn, pos, state, playerIn, hand, heldItem, side, hitX, hitY, hitZ);
 	}
 	
