@@ -1,4 +1,4 @@
-package crafting;
+package com.Pirhotau.ModTutorial.crafting;
 
 import com.Pirhotau.ModTutorial.common.ModTutorial;
 import com.Pirhotau.ModTutorial.items.ModTutorialItems;

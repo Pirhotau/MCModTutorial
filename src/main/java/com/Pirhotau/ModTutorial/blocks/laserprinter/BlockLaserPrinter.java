@@ -1,8 +1,10 @@
 package com.Pirhotau.ModTutorial.blocks.laserprinter;
 
 import com.Pirhotau.ModTutorial.blocks.BlockTileEntity;
+import com.Pirhotau.ModTutorial.common.ModTutorial;
+import com.Pirhotau.ModTutorial.handler.ModGuiHandler;
 
-import net.minecraft.block.BlockDirt;
+import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyEnum;
@@ -12,6 +14,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
@@ -19,8 +22,8 @@ import net.minecraft.world.World;
 
 public class BlockLaserPrinter extends BlockTileEntity {
 
-	public static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
-	public static final PropertyEnum POSITION = PropertyEnum.create("position", EnumLaserPrinter.class);
+	protected static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
+	protected static final PropertyEnum POSITION = PropertyEnum.create("position", EnumLaserPrinter.class);
 
 	public BlockLaserPrinter() {
 		super("laserprinter");
@@ -29,6 +32,7 @@ public class BlockLaserPrinter extends BlockTileEntity {
 				.withProperty(POSITION, EnumLaserPrinter.BOTTOM));
 		this.setHardness((float) 0.4);
 		this.setHarvestLevel("pickaxe", 0);
+		
 	}
 
 	/*
@@ -59,29 +63,18 @@ public class BlockLaserPrinter extends BlockTileEntity {
 	}
 	
 	
+	public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
+		return pos.getY() >= worldIn.getHeight() - 1 ? false : super.canPlaceBlockAt(worldIn, pos) && super.canPlaceBlockAt(worldIn, pos.up());		
+	}
 	
 	
 	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer,
 			ItemStack stack) {
-		if((EnumLaserPrinter) state.getValue(POSITION) == EnumLaserPrinter.BOTTOM) {
-			// Check if there is 2 available blocks
-			BlockPos topPos = pos.add(0, 1, 0);
-			
-			if(worldIn.getBlockState(topPos) == Blocks.AIR.getDefaultState()) {
-				worldIn.setBlockState(pos, state.withProperty(FACING, placer.getHorizontalFacing().getOpposite()));
-				
-				IBlockState topState = state.withProperty(POSITION, EnumLaserPrinter.TOP).withProperty(FACING, placer.getHorizontalFacing().getOpposite());
-				worldIn.setBlockState(topPos, topState, 3);
-			} else {
-				worldIn.setBlockToAir(pos);
-				
-				if(stack != null) {
-					stack.stackSize ++;
-				} else {
-					stack = new ItemStack(this, 1);
-				}
-			}
+		if((EnumLaserPrinter) state.getValue(POSITION) == EnumLaserPrinter.BOTTOM) {			
+			worldIn.setBlockState(pos, state.withProperty(FACING, placer.getHorizontalFacing().getOpposite()));			
+			IBlockState topState = state.withProperty(POSITION, EnumLaserPrinter.TOP).withProperty(FACING, placer.getHorizontalFacing().getOpposite());
+			worldIn.setBlockState(pos.up(), topState, 3);
 		}
 	}
 	/*
@@ -95,12 +88,12 @@ public class BlockLaserPrinter extends BlockTileEntity {
 	public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state) {
 		
 		if((EnumLaserPrinter) state.getValue(POSITION) == EnumLaserPrinter.BOTTOM) {
-			if(worldIn.getBlockState(pos.add(0, 1, 0)).getBlock() == this) {
-				worldIn.setBlockToAir(pos.add(0, 1, 0));
+			if(worldIn.getBlockState(pos.up()).getBlock() == this) {
+				worldIn.setBlockToAir(pos.up());
 			}			
 		} else {
-			if(worldIn.getBlockState(pos.add(0, -1, 0)).getBlock() == this) {
-				worldIn.setBlockToAir(pos.add(0, -1, 0));
+			if(worldIn.getBlockState(pos.down()).getBlock() == this) {
+				worldIn.setBlockToAir(pos.down());
 			}
 		}
 		
@@ -110,6 +103,18 @@ public class BlockLaserPrinter extends BlockTileEntity {
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+		if(!worldIn.isRemote) {
+			if(state.getValue(POSITION) == EnumLaserPrinter.BOTTOM 
+					&& worldIn.getBlockState(pos.up()).getBlock() == this 
+					&& worldIn.getBlockState(pos.up()).getValue(POSITION) == EnumLaserPrinter.TOP) {
+				playerIn.openGui(ModTutorial.instance, ModGuiHandler.LASER_PRINTER, worldIn, pos.getX(), pos.getY(), pos.getZ());
+			}
+			else if(state.getValue(POSITION) == EnumLaserPrinter.TOP
+					&& worldIn.getBlockState(pos.down()).getBlock() == this
+					&& worldIn.getBlockState(pos.down()).getValue(POSITION) == EnumLaserPrinter.BOTTOM) {
+				playerIn.openGui(ModTutorial.instance, ModGuiHandler.LASER_PRINTER, worldIn, pos.down().getX(), pos.down().getY(), pos.down().getZ());
+			}
+		}
 		return super.onBlockActivated(worldIn, pos, state, playerIn, hand, heldItem, side, hitX, hitY, hitZ);
 	}
 	

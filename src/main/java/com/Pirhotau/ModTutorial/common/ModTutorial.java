@@ -1,9 +1,7 @@
 package com.Pirhotau.ModTutorial.common;
 
-import com.Pirhotau.ModTutorial.items.ItemDebug;
+import com.Pirhotau.ModTutorial.handler.ModGuiHandler;
 
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -11,6 +9,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 @Mod(modid = ModTutorial.MODID, name = ModTutorial.MOD_NAME, version = ModTutorial.VERSION)
 public class ModTutorial {
@@ -38,6 +37,7 @@ public class ModTutorial {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent e) {
 		this.proxy.preInit(e);
+		NetworkRegistry.INSTANCE.registerGuiHandler(this, new ModGuiHandler());
 	}
 
 	@EventHandler

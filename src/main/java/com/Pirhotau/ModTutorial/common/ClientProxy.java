@@ -1,5 +1,7 @@
 package com.Pirhotau.ModTutorial.common;
 
+import java.lang.reflect.InvocationTargetException;
+
 import com.Pirhotau.ModTutorial.client.render.blocks.BlockRenderRegister;
 import com.Pirhotau.ModTutorial.client.render.items.ItemRenderRegister;
 
@@ -9,6 +11,8 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 public class ClientProxy extends CommonProxy {
+	
+	
 	
 	/*
 	 * Read config file

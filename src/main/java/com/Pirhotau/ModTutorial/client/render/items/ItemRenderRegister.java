@@ -21,11 +21,6 @@ public final class ItemRenderRegister {
 	 * Register each item, one by one
 	 */
 	public static void registerItemRenderer() {
-		/*
-		register(ModTutorialItems.debugItem);
-		register(ModTutorialItems.titaniumDioxyde);
-		register(ModTutorialItems.titaniumFragment);
-		register(ModTutorialItems.titaniumIngot);*/
 		for(Item item : listItems) {
 			register(item);
 		}

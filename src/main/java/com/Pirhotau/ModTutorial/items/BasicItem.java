@@ -1,8 +1,8 @@
 package com.Pirhotau.ModTutorial.items;
 
 import com.Pirhotau.ModTutorial.client.render.items.ItemRenderRegister;
+import com.Pirhotau.ModTutorial.crafting.ModTutorialCreativeTab;
 
-import crafting.ModTutorialCreativeTab;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 

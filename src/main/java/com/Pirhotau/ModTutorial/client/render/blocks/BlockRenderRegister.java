@@ -14,17 +14,16 @@ public class BlockRenderRegister {
 	private static LinkedList<Block> listBlocks = new LinkedList<Block>();
 	
 	public static void registerBlockRenderer() {
-		for(Block block : listBlocks) {
-			register(block);
-		}
+		register(ModTutorialBlocks.mineBlock);
+		register(ModTutorialBlocks.titaniumOre);
+		
+ 		register(ModTutorialBlocks.piFurnace);
+ 		register(ModTutorialBlocks.cooker);
+		register(ModTutorialBlocks.laserprinter);
 	}
 	
 	public static void register(Block block) {
 		ModelResourceLocation mrl = new ModelResourceLocation(block.getRegistryName().toString(), "inventory");
 		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, mrl);
-	}
-	
-	public static void addBlockToRenderRegister(Block block) {
-		listBlocks.add(block);
 	}
 }
