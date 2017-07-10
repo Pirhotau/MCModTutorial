@@ -6,6 +6,7 @@ import com.Pirhotau.ModTutorial.common.ModTutorial;
 import com.Pirhotau.ModTutorial.items.ModTutorialItems;
 import com.Pirhotau.Utils.customcapabilities.AdvancedItemStackHandler;
 import com.Pirhotau.Utils.customcapabilities.StackConstraintItem;
+import com.Pirhotau.Utils.customcapabilities.StackConstraintItemAndQuantity;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -23,12 +24,12 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 		super();
 		inventory = new AdvancedItemStackHandler(6);
 		
-		inventory.addConstraint(new StackConstraintItem(ModTutorialItems.laserSource), 0);
-		inventory.addConstraint(new StackConstraintItem(ModTutorialItems.heatShield), 1);
+		inventory.addConstraint(new StackConstraintItemAndQuantity(ModTutorialItems.laserSource, 1), 0);
+		inventory.addConstraint(new StackConstraintItemAndQuantity(ModTutorialItems.heatShield, 1), 1);
 		inventory.addConstraint(new StackConstraintItem(ModTutorialItems.titaniumPowder), 2);
 		inventory.addConstraint(new StackConstraintItem(ModTutorialItems.titaniumPowder), 3);
-		inventory.addConstraint(new StackConstraintItem(ModTutorialItems.build), 4);
-		inventory.addConstraint(new StackConstraintItem(ModTutorialItems.usbStick), 5);
+		inventory.addConstraint(new StackConstraintItemAndQuantity(ModTutorialItems.build, 1), 4);
+		inventory.addConstraint(new StackConstraintItemAndQuantity(ModTutorialItems.usbStick, 1), 5);
 	}
 	
 	

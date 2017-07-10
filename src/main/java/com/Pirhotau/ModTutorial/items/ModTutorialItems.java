@@ -26,6 +26,6 @@ public class ModTutorialItems {
 		build = new BasicItem("build");
 		laserSource = new BasicItem("laser_source");
 		heatShield = new BasicItem("heat_shield");
-		usbStick = new BasicItem("usb_stick");
+		usbStick = new BasicItem("usb_stick"); // Make is non stackable
 	}
 }

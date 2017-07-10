@@ -11,8 +11,13 @@ public class StackConstraintItem implements IStackConstraint {
 	}
 	
 	@Override
-	public boolean constraint(ItemStack itemStack) {
+	public boolean itemTypeConstraint(ItemStack storedStack, ItemStack itemStack) {
 		return itemStack.getItem() == item;
+	}
+
+	@Override
+	public int stackSizeConstraint(int computedMaxStackSize) {
+		return computedMaxStackSize;
 	}
 
 }

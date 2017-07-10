@@ -6,9 +6,17 @@ public interface IStackConstraint {
 	
 	/**
 	 * Returns TRUE if the constraint is validated
-	 * 
+	 * @param storedStack TODO
 	 * @param itemStack
+	 * 
 	 * @return
 	 */
-	public boolean constraint(ItemStack itemStack);
+	public boolean itemTypeConstraint(ItemStack storedStack, ItemStack itemStack);
+	
+	/**
+	 * Return the max stack size
+	 * @param computedMaxStackSize
+	 * @return
+	 */
+	public int stackSizeConstraint(int computedMaxStackSize);
 }

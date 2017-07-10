@@ -6,8 +6,13 @@ import net.minecraft.tileentity.TileEntityFurnace;
 public class StackConstraintFuel implements IStackConstraint {
 
 	@Override
-	public boolean constraint(ItemStack itemStack) {
+	public boolean itemTypeConstraint(ItemStack storedStack, ItemStack itemStack) {
 		return TileEntityFurnace.isItemFuel(itemStack);
+	}
+
+	@Override
+	public int stackSizeConstraint(int computedMaxStackSize) {
+		return computedMaxStackSize;
 	}
 
 }
