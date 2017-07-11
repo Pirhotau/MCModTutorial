@@ -16,6 +16,8 @@ public class ModTutorialItems {
 	public static Item laserSource;
 	public static Item heatShield;
 	public static Item usbStick;
+	
+	public static Item item_1;
 
 	public static void createItems() {
 		debugItem = new ItemDebug();
@@ -26,6 +28,8 @@ public class ModTutorialItems {
 		build = new BasicItem("build");
 		laserSource = new BasicItem("laser_source");
 		heatShield = new BasicItem("heat_shield");
-		usbStick = new BasicItem("usb_stick"); // Make is non stackable
+		usbStick = new BasicItem("usb_stick").setMaxStackSize(1);
+		
+		item_1 = new BasicItem("item_1");
 	}
 }

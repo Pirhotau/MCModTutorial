@@ -7,7 +7,11 @@ import com.Pirhotau.ModTutorial.items.ModTutorialItems;
 import com.Pirhotau.Utils.customcapabilities.AdvancedItemStackHandler;
 import com.Pirhotau.Utils.customcapabilities.StackConstraintItem;
 import com.Pirhotau.Utils.customcapabilities.StackConstraintItemAndQuantity;
+import com.Pirhotau.debug.DebugFrame;
 
+import net.minecraft.block.Block;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -19,6 +23,8 @@ import net.minecraftforge.items.CapabilityItemHandler;
 public class TileEntityLaserPrinter extends TileEntity implements ICapabilityProvider, ITickable {
 
 	private AdvancedItemStackHandler inventory;
+	
+	private boolean isWorking = false;
 	
 	public TileEntityLaserPrinter() {
 		super();
@@ -41,16 +47,53 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 
 	@Override
 	public void readFromNBT(NBTTagCompound nbt) {
-		this.inventory.deserializeNBT(nbt.getCompoundTag("inventory"));		
+		this.inventory.deserializeNBT(nbt.getCompoundTag("inventory"));	
 		super.readFromNBT(nbt);
 	}
 	
 	public void update() {
+		// Must be server side and just on one of the two tile entity of the laserprinter
 		if(!worldObj.isRemote && worldObj.getBlockState(pos).getValue(BlockLaserPrinter.POSITION) == EnumLaserPrinter.BOTTOM) {
-			
+			// If the machine is idle
+			if(!isWorking) {
+				if(isUSBStickReady()) {
+					
+				}
+			}
 		}
 	}
 	
+	/**
+	 * Returns true if the machine gets a USB Stick with a NBT containing the build to produce
+	 * @return
+	 */
+	private boolean isUSBStickReady() {
+		// If there is a USB stick in the slot
+		if(inventory.getStackInSlot(5) != null) {
+			// If the contained item is a USB Stick
+			if(inventory.getStackInSlot(5).getItem() == ModTutorialItems.usbStick) {
+				// If this USB Stick gets a NBT Tag
+				if(inventory.getStackInSlot(5).hasTagCompound()) {
+					// Store the NBT in tmp var
+					NBTTagCompound nbt = inventory.getStackInSlot(5).getTagCompound();
+					
+					// If has the recipe key
+					if(nbt.hasKey("recipe")) {
+						// Store the nbt ItemStack recipe in a tmp var
+						ItemStack stackRecipe = ItemStack.loadItemStackFromNBT(nbt.getCompoundTag("recipe"));
+						
+						// If this stackRecipe as an entry in the LaserPrinterRecipes table
+						ItemStack materialItemStack = LaserPrinterRecipes.instance().getMaterial(stackRecipe);
+						if(materialItemStack != null) {
+							return true;
+						}
+					}
+				}
+			}
+		}
+		
+		return false;
+	}
 	
 	
 	@Override
