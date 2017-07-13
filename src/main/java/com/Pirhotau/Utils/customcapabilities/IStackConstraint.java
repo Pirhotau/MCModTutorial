@@ -6,7 +6,7 @@ public interface IStackConstraint {
 	
 	/**
 	 * Returns TRUE if the constraint is validated
-	 * @param storedStack TODO
+	 * @param storedStack
 	 * @param itemStack
 	 * 
 	 * @return

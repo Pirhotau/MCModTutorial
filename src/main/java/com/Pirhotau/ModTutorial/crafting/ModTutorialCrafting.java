@@ -20,6 +20,8 @@ public class ModTutorialCrafting {
 		addParticularRecipe();
 	}
 	
+	
+	// TODO Remove
 	private static void addParticularRecipe() {
 		ItemStack outputStack = new ItemStack(ModTutorialItems.usbStick);
 		ItemStack storedStack = new ItemStack(ModTutorialItems.item_1, 3);
