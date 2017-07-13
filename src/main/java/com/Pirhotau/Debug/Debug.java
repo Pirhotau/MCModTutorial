@@ -28,24 +28,4 @@ public class Debug {
 	public static void setValue(String key, String value) {
 		Debug.getInstance().getData().setValue(key, value);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	/**
-	 * Returns the data handler
-	 * @return
-	 */
-	public DebugData getDataHandler() {
-		// TODO Really need it?
-		return data;
-	}
-
 }
