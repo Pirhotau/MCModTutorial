@@ -1,8 +1,8 @@
 package com.Pirhotau.ModTutorial.common;
 
+import com.Pirhotau.Debug.Debug;
 import com.Pirhotau.ModTutorial.blocks.ModTutorialBlocks;
 import com.Pirhotau.ModTutorial.crafting.ModTutorialCrafting;
-import com.Pirhotau.ModTutorial.items.ItemDebug;
 import com.Pirhotau.ModTutorial.items.ModTutorialItems;
 
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -18,6 +18,7 @@ public class CommonProxy {
 	 */
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
+		if(ModTutorial.DEBUG) Debug.setVisible(true);
 		ModTutorialItems.createItems();
 		ModTutorialBlocks.createBlocks();
 	}

@@ -31,6 +31,8 @@ public class ModTutorial {
 			serverSide = "com.Pirhotau.ModTutorial.common.ServerProxy")
 	public static CommonProxy proxy;
 	
+	public static final boolean DEBUG = true;
+	
 	/*
 	 * Call the right proxy
 	 */

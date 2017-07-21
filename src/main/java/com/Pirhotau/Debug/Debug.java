@@ -17,8 +17,16 @@ public class Debug {
 		return INSTANCE;
 	}
 	
+	private DebugWindow getWindow() {
+		return window;
+	}
+	
 	private DebugData getData() {
 		return data;
+	}
+	
+	public static void setVisible(boolean b) {
+		Debug.getInstance().getWindow().setVisible(b);
 	}
 	
 	public static void addEntry(String key, String name) {
