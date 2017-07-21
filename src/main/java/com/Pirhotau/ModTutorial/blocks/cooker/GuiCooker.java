@@ -2,7 +2,7 @@ package com.Pirhotau.ModTutorial.blocks.cooker;
 
 import com.Pirhotau.ModTutorial.blocks.ModTutorialBlocks;
 import com.Pirhotau.ModTutorial.common.ModTutorial;
-import com.Pirhotau.Utils.gui.IProgress;
+import com.Pirhotau.Utils.Gui.IProgress;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;

@@ -4,9 +4,10 @@ import javax.annotation.Nullable;
 
 import com.Pirhotau.Debug.Debug;
 import com.Pirhotau.ModTutorial.items.ModTutorialItems;
-import com.Pirhotau.Utils.customcapabilities.AdvancedItemStackHandler;
-import com.Pirhotau.Utils.customcapabilities.StackConstraintItem;
-import com.Pirhotau.Utils.customcapabilities.StackConstraintItemAndQuantity;
+import com.Pirhotau.Utils.CustomItemCapabilities.AdvancedItemStackHandler;
+import com.Pirhotau.Utils.CustomItemCapabilities.StackConstraintItem;
+import com.Pirhotau.Utils.CustomItemCapabilities.StackConstraintItemAndQuantity;
+import com.Pirhotau.Utils.Enum.EnumHalf;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -101,10 +102,13 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 	
 	public void update() {
 		// Must be server side and just on one of the two tile entity of the laserprinter
-		if(!worldObj.isRemote && worldObj.getBlockState(pos).getValue(BlockLaserPrinter.POSITION) == EnumLaserPrinter.BOTTOM) {
+		if(!worldObj.isRemote && worldObj.getBlockState(pos).getValue(BlockLaserPrinter.HALF) == EnumHalf.BOTTOM) {
 			// If the machine is idle
 			if(!this.isWorking) {
 				this.initialisationSequence();
+			}
+			else {
+				workingSequence();
 			}
 		}
 	}
@@ -126,11 +130,23 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 						this.isWorking = true;
 						this.remainingNeededMaterial = LaserPrinterRecipes.instance().getMaterial(stackRecipe);
 						this.side = Side.LEFT;
-						// TODO Continue here 
+						
+						this.inventory.extractItem(4, 64, false);
+						this.inventory.insertItem(4, this.appyNBTOnBuild(stackRecipe), false);
+						this.markDirty();
 					}
 				}
 			}
 		}
+	}
+	
+	/**
+	 * Runs when the machine is working
+	 */
+	private void workingSequence() {
+		// First, check if the machine is able to work
+		
+		
 	}
 	
 	/**
@@ -190,6 +206,26 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 			}
 		}
 		return false;
+	}
+	
+	private ItemStack appyNBTOnBuild(ItemStack recipe) {
+		ItemStack build = new ItemStack(ModTutorialItems.build, 1);
+		
+		NBTTagCompound nbt;
+		if(build.hasTagCompound()) nbt = build.getTagCompound();
+		else nbt = new NBTTagCompound();
+		
+		NBTTagCompound stackNBT;
+		if(!nbt.hasKey("recipe")) stackNBT = new NBTTagCompound();
+		else stackNBT = nbt.getCompoundTag("recipe");
+		recipe.writeToNBT(stackNBT);
+		nbt.setTag("recipe", stackNBT);
+		
+		nbt.setBoolean("finished", Boolean.FALSE);
+		
+		build.setTagCompound(nbt);
+		
+		return build;
 	}
 	
 	/**

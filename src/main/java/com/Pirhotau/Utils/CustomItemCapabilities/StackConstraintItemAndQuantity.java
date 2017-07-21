@@ -1,4 +1,4 @@
-package com.Pirhotau.Utils.customcapabilities;
+package com.Pirhotau.Utils.CustomItemCapabilities;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

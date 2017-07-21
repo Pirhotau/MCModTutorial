@@ -2,8 +2,8 @@ package com.Pirhotau.ModTutorial.blocks.cooker;
 
 import javax.annotation.Nullable;
 
-import com.Pirhotau.Utils.customcapabilities.AdvancedItemStackHandler;
-import com.Pirhotau.Utils.gui.IProgress;
+import com.Pirhotau.Utils.CustomItemCapabilities.AdvancedItemStackHandler;
+import com.Pirhotau.Utils.Gui.IProgress;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
