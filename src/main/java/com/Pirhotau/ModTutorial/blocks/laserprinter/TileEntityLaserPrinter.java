@@ -20,7 +20,7 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.items.CapabilityItemHandler;
 import scala.util.Left;
 
-public class TileEntityLaserPrinter extends TileEntity implements ICapabilityProvider, ITickable {
+public class TileEntityLaserPrinter extends TileEntity implements ICapabilityProvider { // ITickable
 	
 	private static int FUSION_COOLDOWN = 50;
 	private static int RAKE_COOLDOWN = 25;
@@ -30,6 +30,7 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 	private boolean isWorking;
 	private ItemStack remainingNeededMaterial;
 	private EnumLRSide side;
+	private ItemStack stackRecipe;
 	
 	public TileEntityLaserPrinter() {
 		super();
@@ -58,6 +59,7 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 		super.readFromNBT(nbt);
 	}
 	
+	/*
 	public void update() {
 		// Must be server side and just on one of the two tile entity of the laserprinter
 		if(!worldObj.isRemote && worldObj.getBlockState(pos).getValue(BlockLaserPrinter.HALF) == EnumHalf.BOTTOM) {
@@ -69,12 +71,14 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 				workingSequence();
 			}
 		}
-	}
+	}*/
 	
 	/**
 	 * Runs when the machine is not working to detect if a production can be launch, and launch it
 	 */
 	private void initialisationSequence() {
+		
+		/*
 		// Get the USBStick recipe and check if it is not null
 		ItemStack stackRecipe = getUSBStickRecipe();
 		if(stackRecipe != null) {
@@ -86,6 +90,7 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 					if(this.hasMachineEnoughtPowder(LaserPrinterRecipes.instance().getMaterial(stackRecipe))) {
 						// Initialise
 						this.isWorking = true;
+						this.stackRecipe = stackRecipe;
 						this.remainingNeededMaterial = LaserPrinterRecipes.instance().getMaterial(stackRecipe);
 						this.side = EnumLRSide.LEFT;
 						
@@ -95,6 +100,18 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 					}
 				}
 			}
+		}*/
+		
+		if(isMachineReadyToWork()) {
+			// Initialise
+			this.isWorking = true;
+			this.stackRecipe = getUSBStickRecipe();
+			this.remainingNeededMaterial = LaserPrinterRecipes.instance().getMaterial(stackRecipe);
+			this.side = EnumLRSide.LEFT;
+			
+			this.inventory.extractItem(4, 64, false);
+			this.inventory.insertItem(4, this.appyNBTOnBuild(stackRecipe), false);
+			this.markDirty();
 		}
 	}
 	
@@ -105,6 +122,37 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 		// First, check if the machine is able to work
 		
 		
+	}
+	
+	/**
+	 * Returns true if the machine can work. Possible to check before or during the work
+	 * 
+	 * @return
+	 */
+	private boolean isMachineReadyToWork() {
+		// Get the USBStick recipe and check if it is not null
+		ItemStack stackRecipe = getUSBStickRecipe();
+		if(stackRecipe != null) {
+			// If the machine is already working, check if the recipe hasn't changed
+			if(!isWorking || isWorking && stackRecipe.isItemEqual(this.stackRecipe)) {
+				// If the machine is working or, check if the USBStick recipe is saved as a laser printer recipes
+				if(isWorking || !isWorking && LaserPrinterRecipes.instance().getMaterial(stackRecipe) != null) {
+					// If there is a laser and a heatshield in the printer
+					if(this.isLaserInPrinter() && this.isLaserInPrinter()) {
+						// If the build slot if empty (for a non-working machine)
+						if(!isWorking && this.isBuildSlotEmpty() || isWorking && !this.isBuildSlotEmpty()) {
+							// If the machine has enought material
+							if(!isWorking && this.hasMachineEnoughtPowder(LaserPrinterRecipes.instance().getMaterial(stackRecipe)) 
+									|| isWorking && this.hasMachineEnoughtPowder(this.remainingNeededMaterial)) {
+								return true;
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		return false;
 	}
 	
 	/**

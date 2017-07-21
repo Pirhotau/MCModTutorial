@@ -1,11 +1,13 @@
 package com.Pirhotau.ModTutorial.blocks.laserprinter;
 
+import com.Pirhotau.Debug.Debug;
 import com.Pirhotau.ModTutorial.blocks.BlockTileEntity;
 import com.Pirhotau.ModTutorial.common.ModTutorial;
 import com.Pirhotau.ModTutorial.handler.ModGuiHandler;
 import com.Pirhotau.Utils.Enum.EnumHalf;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockFurnace;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyEnum;
@@ -101,11 +103,17 @@ public class BlockLaserPrinter extends BlockTileEntity {
 				playerIn.openGui(ModTutorial.instance, ModGuiHandler.LASER_PRINTER, worldIn, pos.down().getX(), pos.down().getY(), pos.down().getZ());
 			}
 		}
+		
 		return super.onBlockActivated(worldIn, pos, state, playerIn, hand, heldItem, side, hitX, hitY, hitZ);
 	}
 	
 	@Override
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+		Debug.addEntry("bb1", "state.getValue()");
+		Debug.addEntry("bb2", "(EnumHalf) state.getValue()");
+		
+		Debug.setValue("bb1", state.getValue(HALF).toString());
+		Debug.setValue("bb2", ((EnumHalf) state.getValue(HALF)).toString());
 		
 		if((EnumHalf) state.getValue(HALF) == EnumHalf.BOTTOM) {
 			releaseItems(worldIn, pos);
@@ -128,12 +136,14 @@ public class BlockLaserPrinter extends BlockTileEntity {
 	 * @param world
 	 * @param pos
 	 */
-	private void releaseItems(World world, BlockPos pos) {
+	private void releaseItems(World world, BlockPos pos) {		
 		IItemHandler inventory = this.getTileEntity(world, pos).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
 		
 		for(int slot=0; slot < inventory.getSlots(); slot++) {
-			EntityItem item = new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), inventory.getStackInSlot(slot));
-			world.spawnEntityInWorld(item);
+			if(inventory.getStackInSlot(slot) != null) {
+				EntityItem item = new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), inventory.getStackInSlot(slot));
+				world.spawnEntityInWorld(item);
+			}
 		}
 	}
 	

@@ -6,13 +6,13 @@
 	"variants": {
 		"normal": {"model": "modtutorial:laserprinter", "y": 90},
 		"inventory": {"model": "modtutorial:laserprinter", "y": 90},
-		"facing=north,position=bottom": {"model": "modtutorial:laserprinter_bottom"},
-		"facing=south,position=bottom": {"model": "modtutorial:laserprinter_bottom", "y": 180},
-		"facing=west,position=bottom": {"model": "modtutorial:laserprinter_bottom", "y": 270},
-		"facing=east,position=bottom": {"model": "modtutorial:laserprinter_bottom", "y": 90},
-		"facing=north,position=top": {"model": "modtutorial:laserprinter_top"},
-		"facing=south,position=top": {"model": "modtutorial:laserprinter_top", "y": 180},
-		"facing=west,position=top": {"model": "modtutorial:laserprinter_top", "y": 270},
-		"facing=east,position=top": {"model": "modtutorial:laserprinter_top", "y": 90}
+		"facing=north,half=bottom": {"model": "modtutorial:laserprinter_bottom"},
+		"facing=south,half=bottom": {"model": "modtutorial:laserprinter_bottom", "y": 180},
+		"facing=west,half=bottom": {"model": "modtutorial:laserprinter_bottom", "y": 270},
+		"facing=east,half=bottom": {"model": "modtutorial:laserprinter_bottom", "y": 90},
+		"facing=north,half=top": {"model": "modtutorial:laserprinter_top"},
+		"facing=south,half=top": {"model": "modtutorial:laserprinter_top", "y": 180},
+		"facing=west,half=top": {"model": "modtutorial:laserprinter_top", "y": 270},
+		"facing=east,half=top": {"model": "modtutorial:laserprinter_top", "y": 90}
 	}
 }
