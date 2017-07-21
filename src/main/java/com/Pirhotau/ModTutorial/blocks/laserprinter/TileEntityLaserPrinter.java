@@ -8,6 +8,7 @@ import com.Pirhotau.Utils.CustomItemCapabilities.AdvancedItemStackHandler;
 import com.Pirhotau.Utils.CustomItemCapabilities.StackConstraintItem;
 import com.Pirhotau.Utils.CustomItemCapabilities.StackConstraintItemAndQuantity;
 import com.Pirhotau.Utils.Enum.EnumHalf;
+import com.Pirhotau.Utils.Enum.EnumLRSide;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -28,50 +29,7 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 	
 	private boolean isWorking;
 	private ItemStack remainingNeededMaterial;
-	private Side side;
-	
-	private enum Side {
-		LEFT("left", 0),
-		RIGHT("right", 1);
-		
-		private String name;
-		private int index;
-		
-		private Side(String name, int index) {
-			this.name = name;
-			this.index = index;
-		}
-		
-		private void toggle() {
-			switch(this) {
-				case LEFT: {
-					this.setValue(RIGHT);
-					break;
-				}
-				case RIGHT: {
-					this.setValue(LEFT);
-					break;
-				}
-			}
-		}
-		
-		private void setValue(Side side) {
-			this.name = side.getName();
-			this.index = side.getIndex();
-		}
-		
-		private int getIndex() {
-			return index;
-		}
-		
-		private String getName() {
-			return name;
-		}
-		
-		public String toString() {
-			return this.getName();
-		}
-	}
+	private EnumLRSide side;
 	
 	public TileEntityLaserPrinter() {
 		super();
@@ -129,7 +87,7 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 						// Initialise
 						this.isWorking = true;
 						this.remainingNeededMaterial = LaserPrinterRecipes.instance().getMaterial(stackRecipe);
-						this.side = Side.LEFT;
+						this.side = EnumLRSide.LEFT;
 						
 						this.inventory.extractItem(4, 64, false);
 						this.inventory.insertItem(4, this.appyNBTOnBuild(stackRecipe), false);
