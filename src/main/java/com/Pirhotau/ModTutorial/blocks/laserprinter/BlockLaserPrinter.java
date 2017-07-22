@@ -108,13 +108,7 @@ public class BlockLaserPrinter extends BlockTileEntity {
 	}
 	
 	@Override
-	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-		Debug.addEntry("bb1", "state.getValue()");
-		Debug.addEntry("bb2", "(EnumHalf) state.getValue()");
-		
-		Debug.setValue("bb1", state.getValue(HALF).toString());
-		Debug.setValue("bb2", ((EnumHalf) state.getValue(HALF)).toString());
-		
+	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {	// TODO BUG : si on casse le haut, items*2	
 		if((EnumHalf) state.getValue(HALF) == EnumHalf.BOTTOM) {
 			releaseItems(worldIn, pos);
 			

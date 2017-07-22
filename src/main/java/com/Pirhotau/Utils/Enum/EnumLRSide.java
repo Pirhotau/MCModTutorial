@@ -12,22 +12,12 @@ public enum EnumLRSide {
 		this.index = index;
 	}
 	
-	private void toggle() {
-		switch(this) {
-			case LEFT: {
-				this.setValue(RIGHT);
-				break;
-			}
-			case RIGHT: {
-				this.setValue(LEFT);
-				break;
-			}
+	public static EnumLRSide cycle(EnumLRSide value) {
+		switch(value) {
+			case LEFT: return EnumLRSide.RIGHT;
+			case RIGHT: return EnumLRSide.LEFT;
+			default: return null;
 		}
-	}
-	
-	private void setValue(EnumLRSide side) {
-		this.name = side.getName();
-		this.index = side.getIndex();
 	}
 	
 	private int getIndex() {
