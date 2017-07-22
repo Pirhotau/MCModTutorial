@@ -36,4 +36,16 @@ public class Debug {
 	public static void setValue(String key, String value) {
 		Debug.getInstance().getData().setValue(key, value);
 	}
+	
+	public static void setValue(String key, int value) {
+		Debug.setValue(key, ((Integer) value).toString());
+	}
+	
+	public static void setValue(String key, double value) {
+		Debug.setValue(key, ((Double) value).toString());
+	}
+	
+	public static void setValue(String key, boolean value) {
+		Debug.setValue(key, ((Boolean) value).toString());
+	}
 }
