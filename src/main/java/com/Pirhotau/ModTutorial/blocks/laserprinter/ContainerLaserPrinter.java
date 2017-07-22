@@ -76,7 +76,8 @@ public class ContainerLaserPrinter extends Container {
 	
 	@Override
 	public boolean canInteractWith(EntityPlayer playerIn) {
-		return !playerIn.isSpectator();
+		//return !playerIn.isSpectator();
+		return true;
 	}
 
 }
