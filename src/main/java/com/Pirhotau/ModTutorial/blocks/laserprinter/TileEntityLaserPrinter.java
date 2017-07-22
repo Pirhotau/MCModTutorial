@@ -186,7 +186,7 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 	 * 
 	 * @return
 	 */
-	private boolean isMachineReadyToWork() {
+	private boolean isMachineReadyToWork() { // TODO Take into account the removing of a slot and build nbt
 		// Get the USBStick recipe and check if it is not null
 		ItemStack stackRecipe = getUSBStickRecipe();
 		Debug.setValue("c0", stackRecipe == null ? "null" : stackRecipe.toString());

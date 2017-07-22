@@ -11,12 +11,14 @@ import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 
 public class GuiLaserPrinter extends GuiContainer {
+	private TileEntityLaserPrinter te;
 	private InventoryPlayer playerInv;
 	private Container inventorySlotsIn;
 	private static final ResourceLocation BG_TEXTURE = new ResourceLocation(ModTutorial.MODID, "textures/gui/container/laserprinter.png");
 
-	public GuiLaserPrinter(Container inventorySlotsIn, InventoryPlayer playerInv) {
+	public GuiLaserPrinter(TileEntityLaserPrinter te, Container inventorySlotsIn, InventoryPlayer playerInv) {
 		super(inventorySlotsIn);
+		this.te = te;
 		this.playerInv = playerInv;
 		this.inventorySlotsIn = inventorySlotsIn;
 		setGuiSize(175, 174);
@@ -25,7 +27,7 @@ public class GuiLaserPrinter extends GuiContainer {
 	
 	
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) { // TODO Add GUI
 		GlStateManager.color(1, 1, 1, 1);
 		mc.getTextureManager().bindTexture(BG_TEXTURE);
 		int x = (width - xSize) / 2;

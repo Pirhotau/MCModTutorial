@@ -33,9 +33,9 @@ public class ModGuiHandler implements IGuiHandler {
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		switch (ID) {
 			case COOKER:
-				return new GuiCooker(getServerGuiElement(ID, player, world, x, y, z), player.inventory);
+				return new GuiCooker((TileEntityCooker)world.getTileEntity(new BlockPos(x, y, z)), getServerGuiElement(ID, player, world, x, y, z), player.inventory);
 			case LASER_PRINTER:
-				return new GuiLaserPrinter(getServerGuiElement(ID, player, world, x, y, z), player.inventory);
+				return new GuiLaserPrinter((TileEntityLaserPrinter)world.getTileEntity(new BlockPos(x, y, z)), getServerGuiElement(ID, player, world, x, y, z), player.inventory);
 			default:
 				return null;
 		}
