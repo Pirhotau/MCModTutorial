@@ -25,7 +25,7 @@ final class DebugWindow extends JFrame {
 	
 	private static final boolean ALWAYS_ON_TOP = true;
 	
-	
+	private JCheckBox cbAlwaysOnTop;
 	
 	/**
 	 * Constructor
@@ -61,7 +61,7 @@ final class DebugWindow extends JFrame {
 		SpringLayout sl_panelButtons = new SpringLayout();
 		panelButtons.setLayout(sl_panelButtons);
 		
-		JCheckBox cbAlwaysOnTop = new JCheckBox("Always on top");
+		cbAlwaysOnTop = new JCheckBox("Always on top");
 		cbAlwaysOnTop.setSelected(ALWAYS_ON_TOP);
 		this.setAlwaysOnTop(ALWAYS_ON_TOP);
 		sl_panelButtons.putConstraint(SpringLayout.WEST, cbAlwaysOnTop, 5, SpringLayout.WEST, panelButtons);
