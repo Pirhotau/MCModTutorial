@@ -11,6 +11,7 @@ import net.minecraftforge.items.SlotItemHandler;
 
 public class ContainerCooker extends Container {
 
+	@SuppressWarnings("unused")
 	private TileEntityCooker te;
 
 	public ContainerCooker(IInventory playerInv, TileEntityCooker te) {

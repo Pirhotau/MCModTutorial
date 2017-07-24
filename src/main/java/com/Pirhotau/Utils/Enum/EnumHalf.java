@@ -1,15 +1,15 @@
-package com.Pirhotau.ModTutorial.blocks.laserprinter;
+package com.Pirhotau.Utils.Enum;
 
 import net.minecraft.util.IStringSerializable;
 
-public enum EnumLaserPrinter implements IStringSerializable {
+public enum EnumHalf implements IStringSerializable {
 	BOTTOM("bottom", 0),
 	TOP("top", 1);
 
 	private int index;
 	private String name;
 
-	private EnumLaserPrinter(String name, int index) {
+	private EnumHalf(String name, int index) {
 		this.index = index;
 		this.name = name;
 	}

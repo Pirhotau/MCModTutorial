@@ -2,7 +2,6 @@ package com.Pirhotau.ModTutorial.blocks.cooker;
 
 import com.Pirhotau.ModTutorial.blocks.ModTutorialBlocks;
 import com.Pirhotau.ModTutorial.common.ModTutorial;
-import com.Pirhotau.Utils.gui.IProgress;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
@@ -12,12 +11,14 @@ import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 
 public class GuiCooker extends GuiContainer {
+	@SuppressWarnings("unused") private TileEntityCooker te;
 	private InventoryPlayer playerInv;
-	private Container inventorySlotsIn;
+	@SuppressWarnings("unused") private Container inventorySlotsIn;
 	private static final ResourceLocation BG_TEXTURE = new ResourceLocation(ModTutorial.MODID, "textures/gui/container/cooker.png");
 
-	public GuiCooker(Container inventorySlotsIn, InventoryPlayer playerInv) {
+	public GuiCooker(TileEntityCooker te, Container inventorySlotsIn, InventoryPlayer playerInv) {
 		super(inventorySlotsIn);
+		this.te = te;
 		this.playerInv = playerInv;
 		this.inventorySlotsIn = inventorySlotsIn;
 	}

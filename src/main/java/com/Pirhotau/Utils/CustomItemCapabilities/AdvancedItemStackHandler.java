@@ -1,4 +1,4 @@
-package com.Pirhotau.Utils.customcapabilities;
+package com.Pirhotau.Utils.CustomItemCapabilities;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -30,18 +30,18 @@ public class AdvancedItemStackHandler extends ItemStackHandler implements IItemH
 	}
 	
 	@Override
-	public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
+	public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {		
 		if (stack == null || stack.stackSize == 0)
             return null;
 		
-		if(!constraint[slot].constraint(stack))
-			return stack;
-
-        validateSlotIndex(slot);
+		validateSlotIndex(slot);
+		
+		if(!constraint[slot].itemTypeConstraint(stacks[slot], stack))
+			return stack;        
 
         ItemStack existing = this.stacks[slot];
 
-        int limit = getStackLimit(slot, stack);
+        int limit = constraint[slot].stackSizeConstraint(getStackLimit(slot, stack));
 
         if (existing != null)
         {

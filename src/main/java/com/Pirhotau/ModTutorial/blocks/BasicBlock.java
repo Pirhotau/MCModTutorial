@@ -1,6 +1,5 @@
 package com.Pirhotau.ModTutorial.blocks;
 
-import com.Pirhotau.ModTutorial.client.render.blocks.BlockRenderRegister;
 import com.Pirhotau.ModTutorial.crafting.ModTutorialCreativeTab;
 
 import net.minecraft.block.Block;

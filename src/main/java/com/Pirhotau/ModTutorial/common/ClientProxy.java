@@ -1,7 +1,5 @@
 package com.Pirhotau.ModTutorial.common;
 
-import java.lang.reflect.InvocationTargetException;
-
 import com.Pirhotau.ModTutorial.client.render.blocks.BlockRenderRegister;
 import com.Pirhotau.ModTutorial.client.render.items.ItemRenderRegister;
 

@@ -1,4 +1,4 @@
-package com.Pirhotau.Utils.gui;
+package com.Pirhotau.Utils.Gui;
 
 public interface IProgress {
 	/**
