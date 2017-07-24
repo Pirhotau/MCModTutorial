@@ -10,7 +10,7 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
 public class ContainerLaserPrinter extends Container {
-	private TileEntityLaserPrinter te;
+	@SuppressWarnings("unused") private TileEntityLaserPrinter te;
 	
 	public ContainerLaserPrinter(IInventory playerInv, TileEntityLaserPrinter te) {
 		this.te = te;

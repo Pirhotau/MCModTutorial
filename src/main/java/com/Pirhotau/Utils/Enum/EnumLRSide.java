@@ -20,11 +20,11 @@ public enum EnumLRSide {
 		}
 	}
 	
-	private int getIndex() {
+	public int getIndex() {
 		return index;
 	}
 	
-	private String getName() {
+	public String getName() {
 		return name;
 	}
 	

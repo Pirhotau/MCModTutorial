@@ -38,17 +38,17 @@ public class ModTutorial {
 	 */
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent e) {
-		this.proxy.preInit(e);
+		ModTutorial.proxy.preInit(e);
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new ModGuiHandler());
 	}
 
 	@EventHandler
 	public void init(FMLInitializationEvent e) {
-	    this.proxy.init(e);
+	    ModTutorial.proxy.init(e);
 	}
 
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent e) {
-	    this.proxy.postInit(e);
+	    ModTutorial.proxy.postInit(e);
 	}
 }

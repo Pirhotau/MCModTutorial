@@ -1,13 +1,10 @@
 package com.Pirhotau.ModTutorial.blocks.laserprinter;
 
-import com.Pirhotau.Debug.Debug;
 import com.Pirhotau.ModTutorial.blocks.BlockTileEntity;
 import com.Pirhotau.ModTutorial.common.ModTutorial;
 import com.Pirhotau.ModTutorial.handler.ModGuiHandler;
 import com.Pirhotau.Utils.Enum.EnumHalf;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockFurnace;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.properties.PropertyEnum;
@@ -16,9 +13,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
@@ -26,10 +21,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 
-public class BlockLaserPrinter extends BlockTileEntity {
+public class BlockLaserPrinter extends BlockTileEntity<TileEntityLaserPrinter> {
 
 	protected static final PropertyDirection FACING = PropertyDirection.create("facing", EnumFacing.Plane.HORIZONTAL);
-	protected static final PropertyEnum HALF = PropertyEnum.create("half", EnumHalf.class);
+	protected static final PropertyEnum<EnumHalf> HALF = PropertyEnum.create("half", EnumHalf.class);
 
 	public BlockLaserPrinter() {
 		super("laserprinter");
@@ -104,7 +99,8 @@ public class BlockLaserPrinter extends BlockTileEntity {
 			}
 		}
 		
-		return super.onBlockActivated(worldIn, pos, state, playerIn, hand, heldItem, side, hitX, hitY, hitZ);
+		return true;
+		//return super.onBlockActivated(worldIn, pos, state, playerIn, hand, heldItem, side, hitX, hitY, hitZ);
 	}
 	
 	@Override

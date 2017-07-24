@@ -35,9 +35,4 @@ public enum EnumLaserOperation implements IStringSerializable{
 			default: return null;
 		}
 	}
-	
-	private void setValue(EnumLaserOperation op) {
-		this.name = op.getName();
-		this.index = op.getIndex();
-	}
 }

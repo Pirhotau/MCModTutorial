@@ -19,7 +19,6 @@ import net.minecraft.util.ITickable;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.items.CapabilityItemHandler;
-import scala.util.Left;
 
 public class TileEntityLaserPrinter extends TileEntity implements ICapabilityProvider, ITickable {
 	
@@ -71,18 +70,58 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 		Debug.addEntry("side", "Rake side");
 		Debug.addEntry("op", "Operation");
 		Debug.addEntry("rem", "Remaining");
-	}
-	
+	}	 
 	
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
 		nbt.setTag("inventory", this.inventory.serializeNBT());
+		nbt.setBoolean("isWorking", this.isWorking);
+		
+		if(this.remainingNeededMaterial != null) {
+			NBTTagCompound nbtRemainingMaterial = new NBTTagCompound();
+			this.remainingNeededMaterial.writeToNBT(nbtRemainingMaterial);
+			nbt.setTag("remainingNeededMaterial", nbtRemainingMaterial);
+		}
+		
+		if(this.side != null) {
+			nbt.setInteger("side", this.side.getIndex());
+		}
+		
+		if(this.operation != null) {
+			nbt.setInteger("operation", this.operation.getIndex());
+		}		
+		
+		if(this.stackRecipe != null) {
+			NBTTagCompound nbtStackRecipe = new NBTTagCompound();
+			this.stackRecipe.writeToNBT(nbtStackRecipe);
+			nbt.setTag("stackRecipe", nbtStackRecipe);
+		}
+		
+		nbt.setInteger("timer", this.timer);
 		return super.writeToNBT(nbt);
 	}
 
 	@Override
 	public void readFromNBT(NBTTagCompound nbt) {
-		this.inventory.deserializeNBT(nbt.getCompoundTag("inventory"));		
+		this.inventory.deserializeNBT(nbt.getCompoundTag("inventory"));
+		this.isWorking = nbt.getBoolean("isWorking");
+		
+		if(nbt.hasKey("remainingNeededMaterial")) {
+			this.remainingNeededMaterial = ItemStack.loadItemStackFromNBT(nbt.getCompoundTag("remainingNeededMaterial"));
+		} else this.remainingNeededMaterial = null;
+		
+		if(nbt.hasKey("side")) this.side = EnumLRSide.values()[nbt.getInteger("side")];
+		else this.side = null;
+		
+		if(nbt.hasKey("operation")) this.operation = EnumLaserOperation.values()[nbt.getInteger("operation")];
+		else this.operation = null;
+		
+		if(nbt.hasKey("stackRecipe")) {
+			this.stackRecipe = ItemStack.loadItemStackFromNBT(nbt.getCompoundTag("stackRecipe"));
+		} else this.stackRecipe = null;
+		
+		
+		this.timer = nbt.getInteger("timer");
 		super.readFromNBT(nbt);
 	}
 
@@ -94,9 +133,11 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 			// If the machine is idle
 			if(!this.isWorking) {
 				this.initialisationSequence();
+				this.markDirty();
 			}
 			else {
-				workingSequence();
+				this.workingSequence();
+				this.markDirty();
 			}
 		}
 	}
@@ -111,13 +152,13 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 			// Initialise
 			this.isWorking = true;
 			this.stackRecipe = getUSBStickRecipe();
-			this.remainingNeededMaterial = ItemStack.copyItemStack(LaserPrinterRecipes.instance().getMaterial(stackRecipe));
+			this.remainingNeededMaterial = ItemStack.copyItemStack(LaserPrinterRecipes.instance().getMaterial(this.stackRecipe));
 			this.side = EnumLRSide.LEFT;
 			this.operation = EnumLaserOperation.RAKE;
 			this.timer = 0;
 			
 			this.inventory.extractItem(4, 64, false);
-			this.inventory.insertItem(4, this.appyNBTOnBuild(stackRecipe), false);
+			this.inventory.insertItem(4, this.appyNBTOnBuild(this.stackRecipe), false);
 			this.markDirty();
 		}
 	}
@@ -339,6 +380,44 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 		return false;
 	}
 	
+	/**
+	 * For the gui, returns the rake progress (min = 0; max = 100)
+	 * 
+	 * @return
+	 */
+	public int getRakeProgress() {
+		if(!isWorking) return 0;
+		else {
+			if(this.operation == EnumLaserOperation.FUSION) return 0;
+			else return (timer * 100) / RAKE_COOLDOWN;
+		}
+	}
+	
+	/**
+	 * For the GUI, returns the rake side for the progress bar
+	 * 
+	 * @return
+	 */
+	public EnumLRSide getRakeSide() {
+		if(this.side != null) return this.side;
+		else return EnumLRSide.LEFT;
+	}
+	
+	/**
+	 * For the gui, returns the global progress of the build
+	 * 
+	 * @return
+	 */
+	public int getGlobalProgress() {
+		if(!isWorking) return 0;
+		else {
+			int neededMaterial = LaserPrinterRecipes.instance().getMaterial(this.stackRecipe).stackSize;
+			int remainingMaterial = this.remainingNeededMaterial.stackSize;
+			
+			if(neededMaterial != 0) return ((neededMaterial - remainingMaterial) * 100) / neededMaterial;
+			else return 0;
+		}
+	}
 	
 	@Override
 	public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
