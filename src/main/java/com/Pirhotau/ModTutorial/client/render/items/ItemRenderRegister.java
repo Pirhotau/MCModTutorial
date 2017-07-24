@@ -2,13 +2,6 @@ package com.Pirhotau.ModTutorial.client.render.items;
 
 import java.util.LinkedList;
 
-import org.lwjgl.Sys;
-
-import com.Pirhotau.ModTutorial.common.ModTutorial;
-import com.Pirhotau.ModTutorial.items.ItemDebug;
-import com.Pirhotau.ModTutorial.items.ModTutorialItems;
-
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.model.ModelLoader;

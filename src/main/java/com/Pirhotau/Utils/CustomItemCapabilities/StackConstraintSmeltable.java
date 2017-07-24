@@ -2,7 +2,6 @@ package com.Pirhotau.Utils.CustomItemCapabilities;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
-import net.minecraftforge.oredict.OreDictionary;
 
 public class StackConstraintSmeltable implements IStackConstraint {
 
