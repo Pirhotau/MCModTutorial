@@ -37,7 +37,7 @@ public class AdvancedItemStackHandler extends ItemStackHandler implements IItemH
 		validateSlotIndex(slot);
 		
 		if(!constraint[slot].itemTypeConstraint(stacks[slot], stack))
-			return stack;        
+			return stack;
 
         ItemStack existing = this.stacks[slot];
 
@@ -70,5 +70,49 @@ public class AdvancedItemStackHandler extends ItemStackHandler implements IItemH
         }
 
         return reachedLimit ? ItemHandlerHelper.copyStackWithSize(stack, stack.stackSize - limit) : null;
+	}
+	
+	public AutomationAdvancedItemStackHandler forAutomation() {
+		return new AutomationAdvancedItemStackHandler(this);
+	}
+	
+	public class AutomationAdvancedItemStackHandler implements IItemHandler {
+		
+		private AdvancedItemStackHandler inventory;
+		
+		public AutomationAdvancedItemStackHandler(AdvancedItemStackHandler inventory) {
+			this.inventory = inventory;
+		}
+		
+		
+		@Override
+		public int getSlots() {
+			return inventory.getSlots();
+		}
+
+
+		@Override
+		public ItemStack getStackInSlot(int slot) {
+			return inventory.getStackInSlot(slot);
+		}
+		
+		@Override
+		public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
+			validateSlotIndex(slot);
+			if(!constraint[slot].canInsert())
+				return stack;
+			return inventory.insertItem(slot, stack, simulate);
+		}
+		
+		
+		@Override
+		public ItemStack extractItem(int slot, int amount, boolean simulate) {
+			
+			validateSlotIndex(slot);
+			if(!constraint[slot].canExtract())
+				return null;
+			
+			return inventory.extractItem(slot, amount, simulate);
+		}
 	}
 }

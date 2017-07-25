@@ -14,4 +14,14 @@ public class StackConstraintFree implements IStackConstraint {
 		return computedMaxStackSize;
 	}
 
+	@Override
+	public boolean canInsert() {
+		return true;
+	}
+
+	@Override
+	public boolean canExtract() {
+		return true;
+	}
+
 }

@@ -19,4 +19,18 @@ public interface IStackConstraint {
 	 * @return
 	 */
 	public int stackSizeConstraint(int computedMaxStackSize);
+	
+	/**
+	 * Returns true if a stack is able to be inserted to the slot
+	 * 
+	 * @return
+	 */
+	public boolean canInsert();
+	
+	/**
+	 * Returns true if a stack is able to be extracted from the slot
+	 * 
+	 * @return
+	 */
+	public boolean canExtract();
 }
