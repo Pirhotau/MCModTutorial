@@ -9,21 +9,17 @@ import net.minecraft.item.crafting.FurnaceRecipes;
  * @author Rémy
  *
  */
-public class StackConstraintSmeltable implements IStackConstraint {
+public class SlotConstraintSmeltable extends SlotConstraint  {
 
-	private boolean allowInsert;
-	private boolean allowExtract;
-	
 	/**
 	 * By default, allow insert and deny extract
 	 */
-	public StackConstraintSmeltable() {
+	public SlotConstraintSmeltable() {
 		this(true, false);
 	}
 	
-	public StackConstraintSmeltable(boolean allowInsert, boolean allowExtract) {
-		this.allowInsert = allowInsert;
-		this.allowExtract = allowExtract;
+	public SlotConstraintSmeltable(boolean allowAutomationInsert, boolean allowAutomationExtract) {
+		super(allowAutomationInsert, allowAutomationExtract);
 	}
 
 	@Override
@@ -34,15 +30,5 @@ public class StackConstraintSmeltable implements IStackConstraint {
 	@Override
 	public int stackSizeConstraint(int computedMaxStackSize) {
 		return computedMaxStackSize;
-	}
-	
-	@Override
-	public boolean canInsert() {
-		return this.allowInsert;
-	}
-
-	@Override
-	public boolean canExtract() {
-		return this.allowExtract;
 	}
 }

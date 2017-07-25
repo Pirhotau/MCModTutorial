@@ -5,8 +5,8 @@ import javax.annotation.Nullable;
 import com.Pirhotau.Debug.Debug;
 import com.Pirhotau.ModTutorial.items.ModTutorialItems;
 import com.Pirhotau.Utils.CustomItemCapabilities.AdvancedItemStackHandler;
-import com.Pirhotau.Utils.CustomItemCapabilities.StackConstraintItem;
-import com.Pirhotau.Utils.CustomItemCapabilities.StackConstraintItemAndQuantity;
+import com.Pirhotau.Utils.CustomItemCapabilities.SlotConstraintItem;
+import com.Pirhotau.Utils.CustomItemCapabilities.SlotConstraintItemAndQuantity;
 import com.Pirhotau.Utils.Enum.EnumHalf;
 import com.Pirhotau.Utils.Enum.EnumLRSide;
 import com.Pirhotau.Utils.Enum.EnumLaserOperation;
@@ -47,12 +47,12 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 		super();
 		inventory = new AdvancedItemStackHandler(6);
 		
-		inventory.addConstraint(new StackConstraintItemAndQuantity(ModTutorialItems.laserSource, 1), 0);
-		inventory.addConstraint(new StackConstraintItemAndQuantity(ModTutorialItems.heatShield, 1), 1);
-		inventory.addConstraint(new StackConstraintItem(ModTutorialItems.titaniumPowder), 2);
-		inventory.addConstraint(new StackConstraintItem(ModTutorialItems.titaniumPowder), 3);
-		inventory.addConstraint(new StackConstraintItemAndQuantity(ModTutorialItems.build, 1), 4);
-		inventory.addConstraint(new StackConstraintItemAndQuantity(ModTutorialItems.usbStick, 1), 5);
+		inventory.addConstraint(new SlotConstraintItemAndQuantity(ModTutorialItems.laserSource, 1), 0);
+		inventory.addConstraint(new SlotConstraintItemAndQuantity(ModTutorialItems.heatShield, 1), 1);
+		inventory.addConstraint(new SlotConstraintItem(ModTutorialItems.titaniumPowder), 2);
+		inventory.addConstraint(new SlotConstraintItem(ModTutorialItems.titaniumPowder), 3);
+		inventory.addConstraint(new SlotConstraintItemAndQuantity(ModTutorialItems.build, 1), 4);
+		inventory.addConstraint(new SlotConstraintItemAndQuantity(ModTutorialItems.usbStick, 1), 5);
 		
 		isWorking = false;
 		

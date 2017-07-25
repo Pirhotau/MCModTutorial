@@ -2,7 +2,7 @@ package com.Pirhotau.Utils.CustomItemCapabilities;
 
 import net.minecraft.item.ItemStack;
 
-public class StackConstraintFree implements IStackConstraint {
+public class SlotConstraintFree extends SlotConstraint {
 
 	@Override
 	public boolean itemTypeConstraint(ItemStack storedStack, ItemStack itemStack) {
@@ -13,15 +13,4 @@ public class StackConstraintFree implements IStackConstraint {
 	public int stackSizeConstraint(int computedMaxStackSize) {
 		return computedMaxStackSize;
 	}
-
-	@Override
-	public boolean canInsert() {
-		return true;
-	}
-
-	@Override
-	public boolean canExtract() {
-		return true;
-	}
-
 }

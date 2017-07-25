@@ -3,17 +3,12 @@ package com.Pirhotau.Utils.CustomItemCapabilities;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityFurnace;
 
-public class StackConstraintFuel implements IStackConstraint {
-	
-	private boolean allowInsert;
-	private boolean allowExtract;
-	
+public class SlotConstraintFuel extends SlotConstraint {	
 	/**
 	 * By default, allow insert and deny extract
 	 */
-	public StackConstraintFuel() {
-		this.allowInsert = true;
-		this.allowExtract = false;
+	public SlotConstraintFuel() {
+		super(true, true, true, false);
 	}
 
 	@Override
@@ -25,15 +20,4 @@ public class StackConstraintFuel implements IStackConstraint {
 	public int stackSizeConstraint(int computedMaxStackSize) {
 		return computedMaxStackSize;
 	}
-
-	@Override
-	public boolean canInsert() {
-		return this.allowInsert;
-	}
-
-	@Override
-	public boolean canExtract() {
-		return this.allowExtract;
-	}
-
 }
