@@ -217,6 +217,10 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 				}
 			}
 		}
+		// if the machine is not ready to work, for any reason, stop the process
+		else {
+			this.resetMachine();
+		}
 	}
 	
 	/**
@@ -227,23 +231,23 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 	private boolean isMachineReadyToWork() { // TODO Take into account the removing of a slot and build nbt
 		// Get the USBStick recipe and check if it is not null
 		ItemStack stackRecipe = getUSBStickRecipe();
-		Debug.setValue("c0", stackRecipe == null ? "null" : stackRecipe.toString());
+Debug.setValue("c0", stackRecipe == null ? "null" : stackRecipe.toString());
 		if(stackRecipe != null) {
 			// If the machine is already working, check if the recipe hasn't changed
-			Debug.setValue("c1", !isWorking || isWorking && stackRecipe.isItemEqual(this.stackRecipe));
+Debug.setValue("c1", !isWorking || isWorking && stackRecipe.isItemEqual(this.stackRecipe));
 			if(!isWorking || isWorking && stackRecipe.isItemEqual(this.stackRecipe)) {
 				// If the machine is working or, check if the USBStick recipe is saved as a laser printer recipes
-				Debug.setValue("c2", isWorking || !isWorking && RecipesLaserPrinter.instance().getMaterial(stackRecipe) != null);
+Debug.setValue("c2", isWorking || !isWorking && RecipesLaserPrinter.instance().getMaterial(stackRecipe) != null);
 				if(isWorking || !isWorking && RecipesLaserPrinter.instance().getMaterial(stackRecipe) != null) {
 					// If there is a laser and a heatshield in the printer
-					Debug.setValue("c3", this.isLaserInPrinter() && this.isHeatShieldInPrinter());
+Debug.setValue("c3", this.isLaserInPrinter() && this.isHeatShieldInPrinter());
 					if(this.isLaserInPrinter() && this.isHeatShieldInPrinter()) {
 						// If the build slot if empty (for a non-working machine)
-						Debug.setValue("c4", !isWorking && this.isBuildSlotEmpty() || isWorking && !this.isBuildSlotEmpty());
+Debug.setValue("c4", !isWorking && this.isBuildSlotEmpty() || isWorking && !this.isBuildSlotEmpty());
 						if(!isWorking && this.isBuildSlotEmpty() || isWorking && !this.isBuildSlotEmpty()) {
 							// If the machine has enought material
-							Debug.setValue("c5", !isWorking && this.hasMachineEnoughtPowder(RecipesLaserPrinter.instance().getMaterial(stackRecipe)) 
-									|| isWorking && this.hasMachineEnoughtPowder(this.remainingNeededMaterial));
+Debug.setValue("c5", !isWorking && this.hasMachineEnoughtPowder(RecipesLaserPrinter.instance().getMaterial(stackRecipe)) 
+							|| isWorking && this.hasMachineEnoughtPowder(this.remainingNeededMaterial));
 							if(!isWorking && this.hasMachineEnoughtPowder(RecipesLaserPrinter.instance().getMaterial(stackRecipe)) 
 									|| isWorking && this.hasMachineEnoughtPowder(this.remainingNeededMaterial)) {
 								return true;
