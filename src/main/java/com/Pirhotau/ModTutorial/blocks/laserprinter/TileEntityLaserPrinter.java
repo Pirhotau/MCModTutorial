@@ -152,7 +152,7 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 			// Initialise
 			this.isWorking = true;
 			this.stackRecipe = getUSBStickRecipe();
-			this.remainingNeededMaterial = ItemStack.copyItemStack(LaserPrinterRecipes.instance().getMaterial(this.stackRecipe));
+			this.remainingNeededMaterial = ItemStack.copyItemStack(RecipesLaserPrinter.instance().getMaterial(this.stackRecipe));
 			this.side = EnumLRSide.LEFT;
 			this.operation = EnumLaserOperation.RAKE;
 			this.timer = 0;
@@ -236,8 +236,8 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 			Debug.setValue("c1", !isWorking || isWorking && stackRecipe.isItemEqual(this.stackRecipe));
 			if(!isWorking || isWorking && stackRecipe.isItemEqual(this.stackRecipe)) {
 				// If the machine is working or, check if the USBStick recipe is saved as a laser printer recipes
-				Debug.setValue("c2", isWorking || !isWorking && LaserPrinterRecipes.instance().getMaterial(stackRecipe) != null);
-				if(isWorking || !isWorking && LaserPrinterRecipes.instance().getMaterial(stackRecipe) != null) {
+				Debug.setValue("c2", isWorking || !isWorking && RecipesLaserPrinter.instance().getMaterial(stackRecipe) != null);
+				if(isWorking || !isWorking && RecipesLaserPrinter.instance().getMaterial(stackRecipe) != null) {
 					// If there is a laser and a heatshield in the printer
 					Debug.setValue("c3", this.isLaserInPrinter() && this.isHeatShieldInPrinter());
 					if(this.isLaserInPrinter() && this.isHeatShieldInPrinter()) {
@@ -245,9 +245,9 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 						Debug.setValue("c4", !isWorking && this.isBuildSlotEmpty() || isWorking && !this.isBuildSlotEmpty());
 						if(!isWorking && this.isBuildSlotEmpty() || isWorking && !this.isBuildSlotEmpty()) {
 							// If the machine has enought material
-							Debug.setValue("c5", !isWorking && this.hasMachineEnoughtPowder(LaserPrinterRecipes.instance().getMaterial(stackRecipe)) 
+							Debug.setValue("c5", !isWorking && this.hasMachineEnoughtPowder(RecipesLaserPrinter.instance().getMaterial(stackRecipe)) 
 									|| isWorking && this.hasMachineEnoughtPowder(this.remainingNeededMaterial));
-							if(!isWorking && this.hasMachineEnoughtPowder(LaserPrinterRecipes.instance().getMaterial(stackRecipe)) 
+							if(!isWorking && this.hasMachineEnoughtPowder(RecipesLaserPrinter.instance().getMaterial(stackRecipe)) 
 									|| isWorking && this.hasMachineEnoughtPowder(this.remainingNeededMaterial)) {
 								return true;
 							}
@@ -411,7 +411,7 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 	public int getGlobalProgress() {
 		if(!isWorking) return 0;
 		else {
-			int neededMaterial = LaserPrinterRecipes.instance().getMaterial(this.stackRecipe).stackSize;
+			int neededMaterial = RecipesLaserPrinter.instance().getMaterial(this.stackRecipe).stackSize;
 			int remainingMaterial = this.remainingNeededMaterial.stackSize;
 			
 			if(neededMaterial != 0) return ((neededMaterial - remainingMaterial) * 100) / neededMaterial;

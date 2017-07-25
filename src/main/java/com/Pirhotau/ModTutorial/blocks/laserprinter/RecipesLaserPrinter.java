@@ -8,8 +8,8 @@ import com.google.common.collect.Maps;
 
 import net.minecraft.item.ItemStack;
 
-public class LaserPrinterRecipes {
-	private static final LaserPrinterRecipes LASER_PRINTER_RECIPES = new LaserPrinterRecipes();
+public class RecipesLaserPrinter {
+	private static final RecipesLaserPrinter LASER_PRINTER_RECIPES = new RecipesLaserPrinter();
 	
 	/** recipes results */
 	private final Map<ItemStack, ItemStack> recipes = Maps.<ItemStack, ItemStack>newHashMap();
@@ -18,11 +18,11 @@ public class LaserPrinterRecipes {
 	/**
 	 * @return
 	 */
-	public static LaserPrinterRecipes instance() {
+	public static RecipesLaserPrinter instance() {
 		return LASER_PRINTER_RECIPES;
 	}
 	
-	private LaserPrinterRecipes() {
+	private RecipesLaserPrinter() {
 		this.addLaserPrinterRecipe(new ItemStack(ModTutorialItems.titaniumPowder, 20), new ItemStack(ModTutorialItems.item_1, 3));
 	}
 	
