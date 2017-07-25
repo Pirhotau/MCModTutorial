@@ -208,10 +208,7 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 					this.timer = 0;
 					
 					if(this.remainingNeededMaterial.stackSize == 0) {
-						this.remainingNeededMaterial = null;
-						this.isWorking = false;
-						this.stackRecipe = null;
-						
+						this.resetMachine();
 						this.finishBuild();
 					}
 					
@@ -356,6 +353,16 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 			nbt = build.getTagCompound();
 			nbt.setBoolean("finished", Boolean.TRUE);
 		}
+	}
+	
+	/**
+	 * Call it when the machine has finished its job
+	 */
+	private void resetMachine() {
+		this.isWorking = false;
+		this.remainingNeededMaterial = null;
+		this.stackRecipe = null;
+		this.timer = 0;
 	}
 	
 	/**
