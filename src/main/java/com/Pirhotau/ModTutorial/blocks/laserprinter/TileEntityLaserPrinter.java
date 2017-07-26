@@ -101,6 +101,11 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 		}
 		
 		nbt.setInteger("timer", this.timer);
+		
+		if(this.energy != null) {
+			this.energy.writeToNBT(nbt);
+		}
+		
 		return super.writeToNBT(nbt);
 	}
 
@@ -123,8 +128,10 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 			this.stackRecipe = ItemStack.loadItemStackFromNBT(nbt.getCompoundTag("stackRecipe"));
 		} else this.stackRecipe = null;
 		
-		
 		this.timer = nbt.getInteger("timer");
+		
+		this.energy.readFromNBT(nbt);
+		
 		super.readFromNBT(nbt);
 	}
 
