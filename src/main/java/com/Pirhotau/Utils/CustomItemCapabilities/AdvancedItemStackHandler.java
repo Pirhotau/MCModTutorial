@@ -9,7 +9,7 @@ import net.minecraftforge.items.ItemStackHandler;
 
 public class AdvancedItemStackHandler extends ItemStackHandler implements IItemHandler, INBTSerializable<NBTTagCompound>{
 
-	protected IStackConstraint[] constraint;
+	protected SlotConstraint[] constraint;
 	
 	public AdvancedItemStackHandler() {
 		this(1);
@@ -17,16 +17,21 @@ public class AdvancedItemStackHandler extends ItemStackHandler implements IItemH
 	
 	public AdvancedItemStackHandler(int size) {
 		super(size);
-		constraint = new IStackConstraint[size];
+		constraint = new SlotConstraint[size];
 		
 		for(int slot = 0; slot < size; slot++) {
-			constraint[slot] = new StackConstraintFree();
+			constraint[slot] = new SlotConstraintFree();
 		}
 	}
 	
-	public void addConstraint(IStackConstraint constraint, int slot) {
+	public void addConstraint(SlotConstraint constraint, int slot) {
 		validateSlotIndex(slot);
 		this.constraint[slot] = constraint;
+	}
+	
+	public SlotConstraint getSlotConstraints(int slot) {
+		validateSlotIndex(slot);
+		return constraint[slot];
 	}
 	
 	@Override
@@ -36,8 +41,11 @@ public class AdvancedItemStackHandler extends ItemStackHandler implements IItemH
 		
 		validateSlotIndex(slot);
 		
+		if(!constraint[slot].canInsert())
+			return stack;
+		
 		if(!constraint[slot].itemTypeConstraint(stacks[slot], stack))
-			return stack;        
+			return stack;
 
         ItemStack existing = this.stacks[slot];
 
@@ -70,5 +78,58 @@ public class AdvancedItemStackHandler extends ItemStackHandler implements IItemH
         }
 
         return reachedLimit ? ItemHandlerHelper.copyStackWithSize(stack, stack.stackSize - limit) : null;
+	}
+	
+	@Override
+	public ItemStack extractItem(int slot, int amount, boolean simulate) {
+		validateSlotIndex(slot);
+		if(!constraint[slot].canExtract())
+			return null;
+		
+		return super.extractItem(slot, amount, simulate);
+	}
+	
+	public AutomationAdvancedItemStackHandler forAutomation() {
+		return new AutomationAdvancedItemStackHandler(this);
+	}
+	
+	public class AutomationAdvancedItemStackHandler implements IItemHandler {
+		
+		private AdvancedItemStackHandler inventory;
+		
+		public AutomationAdvancedItemStackHandler(AdvancedItemStackHandler inventory) {
+			this.inventory = inventory;
+		}
+		
+		
+		@Override
+		public int getSlots() {
+			return inventory.getSlots();
+		}
+
+
+		@Override
+		public ItemStack getStackInSlot(int slot) {
+			return inventory.getStackInSlot(slot);
+		}
+		
+		@Override
+		public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
+			validateSlotIndex(slot);
+			if(!constraint[slot].canAutomationInsert())
+				return stack;
+			return inventory.insertItem(slot, stack, simulate);
+		}
+		
+		
+		@Override
+		public ItemStack extractItem(int slot, int amount, boolean simulate) {
+			
+			validateSlotIndex(slot);
+			if(!constraint[slot].canAutomationExtract())
+				return null;
+			
+			return inventory.extractItem(slot, amount, simulate);
+		}
 	}
 }

@@ -5,8 +5,8 @@ import javax.annotation.Nullable;
 import com.Pirhotau.Debug.Debug;
 import com.Pirhotau.ModTutorial.items.ModTutorialItems;
 import com.Pirhotau.Utils.CustomItemCapabilities.AdvancedItemStackHandler;
-import com.Pirhotau.Utils.CustomItemCapabilities.StackConstraintItem;
-import com.Pirhotau.Utils.CustomItemCapabilities.StackConstraintItemAndQuantity;
+import com.Pirhotau.Utils.CustomItemCapabilities.SlotConstraintItem;
+import com.Pirhotau.Utils.CustomItemCapabilities.SlotConstraintItemAndQuantity;
 import com.Pirhotau.Utils.Enum.EnumHalf;
 import com.Pirhotau.Utils.Enum.EnumLRSide;
 import com.Pirhotau.Utils.Enum.EnumLaserOperation;
@@ -47,12 +47,12 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 		super();
 		inventory = new AdvancedItemStackHandler(6);
 		
-		inventory.addConstraint(new StackConstraintItemAndQuantity(ModTutorialItems.laserSource, 1), 0);
-		inventory.addConstraint(new StackConstraintItemAndQuantity(ModTutorialItems.heatShield, 1), 1);
-		inventory.addConstraint(new StackConstraintItem(ModTutorialItems.titaniumPowder), 2);
-		inventory.addConstraint(new StackConstraintItem(ModTutorialItems.titaniumPowder), 3);
-		inventory.addConstraint(new StackConstraintItemAndQuantity(ModTutorialItems.build, 1), 4);
-		inventory.addConstraint(new StackConstraintItemAndQuantity(ModTutorialItems.usbStick, 1), 5);
+		inventory.addConstraint(new SlotConstraintItemAndQuantity(ModTutorialItems.laserSource, 1), 0);
+		inventory.addConstraint(new SlotConstraintItemAndQuantity(ModTutorialItems.heatShield, 1), 1);
+		inventory.addConstraint(new SlotConstraintItem(ModTutorialItems.titaniumPowder), 2);
+		inventory.addConstraint(new SlotConstraintItem(ModTutorialItems.titaniumPowder), 3);
+		inventory.addConstraint(new SlotConstraintItemAndQuantity(ModTutorialItems.build, 1), 4);
+		inventory.addConstraint(new SlotConstraintItemAndQuantity(ModTutorialItems.usbStick, 1), 5);
 		
 		isWorking = false;
 		
@@ -152,7 +152,7 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 			// Initialise
 			this.isWorking = true;
 			this.stackRecipe = getUSBStickRecipe();
-			this.remainingNeededMaterial = ItemStack.copyItemStack(LaserPrinterRecipes.instance().getMaterial(this.stackRecipe));
+			this.remainingNeededMaterial = ItemStack.copyItemStack(RecipesLaserPrinter.instance().getMaterial(this.stackRecipe));
 			this.side = EnumLRSide.LEFT;
 			this.operation = EnumLaserOperation.RAKE;
 			this.timer = 0;
@@ -208,10 +208,7 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 					this.timer = 0;
 					
 					if(this.remainingNeededMaterial.stackSize == 0) {
-						this.remainingNeededMaterial = null;
-						this.isWorking = false;
-						this.stackRecipe = null;
-						
+						this.resetMachine();
 						this.finishBuild();
 					}
 					
@@ -219,6 +216,10 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 					this.timer ++;
 				}
 			}
+		}
+		// if the machine is not ready to work, for any reason, stop the process
+		else {
+			this.resetMachine();
 		}
 	}
 	
@@ -230,24 +231,24 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 	private boolean isMachineReadyToWork() { // TODO Take into account the removing of a slot and build nbt
 		// Get the USBStick recipe and check if it is not null
 		ItemStack stackRecipe = getUSBStickRecipe();
-		Debug.setValue("c0", stackRecipe == null ? "null" : stackRecipe.toString());
+Debug.setValue("c0", stackRecipe == null ? "null" : stackRecipe.toString());
 		if(stackRecipe != null) {
 			// If the machine is already working, check if the recipe hasn't changed
-			Debug.setValue("c1", !isWorking || isWorking && stackRecipe.isItemEqual(this.stackRecipe));
+Debug.setValue("c1", !isWorking || isWorking && stackRecipe.isItemEqual(this.stackRecipe));
 			if(!isWorking || isWorking && stackRecipe.isItemEqual(this.stackRecipe)) {
 				// If the machine is working or, check if the USBStick recipe is saved as a laser printer recipes
-				Debug.setValue("c2", isWorking || !isWorking && LaserPrinterRecipes.instance().getMaterial(stackRecipe) != null);
-				if(isWorking || !isWorking && LaserPrinterRecipes.instance().getMaterial(stackRecipe) != null) {
+Debug.setValue("c2", isWorking || !isWorking && RecipesLaserPrinter.instance().getMaterial(stackRecipe) != null);
+				if(isWorking || !isWorking && RecipesLaserPrinter.instance().getMaterial(stackRecipe) != null) {
 					// If there is a laser and a heatshield in the printer
-					Debug.setValue("c3", this.isLaserInPrinter() && this.isHeatShieldInPrinter());
+Debug.setValue("c3", this.isLaserInPrinter() && this.isHeatShieldInPrinter());
 					if(this.isLaserInPrinter() && this.isHeatShieldInPrinter()) {
 						// If the build slot if empty (for a non-working machine)
-						Debug.setValue("c4", !isWorking && this.isBuildSlotEmpty() || isWorking && !this.isBuildSlotEmpty());
+Debug.setValue("c4", !isWorking && this.isBuildSlotEmpty() || isWorking && !this.isBuildSlotEmpty());
 						if(!isWorking && this.isBuildSlotEmpty() || isWorking && !this.isBuildSlotEmpty()) {
 							// If the machine has enought material
-							Debug.setValue("c5", !isWorking && this.hasMachineEnoughtPowder(LaserPrinterRecipes.instance().getMaterial(stackRecipe)) 
-									|| isWorking && this.hasMachineEnoughtPowder(this.remainingNeededMaterial));
-							if(!isWorking && this.hasMachineEnoughtPowder(LaserPrinterRecipes.instance().getMaterial(stackRecipe)) 
+Debug.setValue("c5", !isWorking && this.hasMachineEnoughtPowder(RecipesLaserPrinter.instance().getMaterial(stackRecipe)) 
+							|| isWorking && this.hasMachineEnoughtPowder(this.remainingNeededMaterial));
+							if(!isWorking && this.hasMachineEnoughtPowder(RecipesLaserPrinter.instance().getMaterial(stackRecipe)) 
 									|| isWorking && this.hasMachineEnoughtPowder(this.remainingNeededMaterial)) {
 								return true;
 							}
@@ -359,6 +360,16 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 	}
 	
 	/**
+	 * Call it when the machine has finished its job
+	 */
+	private void resetMachine() {
+		this.isWorking = false;
+		this.remainingNeededMaterial = null;
+		this.stackRecipe = null;
+		this.timer = 0;
+	}
+	
+	/**
 	 * Returns true if the machine has enought powder
 	 * @param ItemStack material
 	 * @return
@@ -411,7 +422,7 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 	public int getGlobalProgress() {
 		if(!isWorking) return 0;
 		else {
-			int neededMaterial = LaserPrinterRecipes.instance().getMaterial(this.stackRecipe).stackSize;
+			int neededMaterial = RecipesLaserPrinter.instance().getMaterial(this.stackRecipe).stackSize;
 			int remainingMaterial = this.remainingNeededMaterial.stackSize;
 			
 			if(neededMaterial != 0) return ((neededMaterial - remainingMaterial) * 100) / neededMaterial;
@@ -421,13 +432,21 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 	
 	@Override
 	public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
-		return (facing == null && capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) || super.hasCapability(capability, facing);
+		if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+			return true;
+		} else return super.hasCapability(capability, facing);
+		
+		//return (facing == null && capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) || super.hasCapability(capability, facing);
 	}
 	
 	@Nullable
 	@Override
-	public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {		
-		return (facing == null && capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) ? (T)inventory : super.getCapability(capability, facing);
+	public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
+		if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+			if(facing == null) return (T) inventory;
+			else return (T) inventory.forAutomation();
+		} else return super.getCapability(capability, facing);
+		//return (facing == null && capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) ? (T)inventory : super.getCapability(capability, facing);
 	}
 	
 }

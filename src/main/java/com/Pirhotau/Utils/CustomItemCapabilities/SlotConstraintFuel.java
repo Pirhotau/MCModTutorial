@@ -1,23 +1,23 @@
 package com.Pirhotau.Utils.CustomItemCapabilities;
 
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntityFurnace;
 
-public class StackConstraintItem implements IStackConstraint {
-	private Item item;
-	
-	public StackConstraintItem(Item item) {
-		this.item = item;
+public class SlotConstraintFuel extends SlotConstraint {	
+	/**
+	 * By default, allow insert and deny extract
+	 */
+	public SlotConstraintFuel() {
+		super(true, true, true, false);
 	}
-	
+
 	@Override
 	public boolean itemTypeConstraint(ItemStack storedStack, ItemStack itemStack) {
-		return itemStack.getItem() == item;
+		return TileEntityFurnace.isItemFuel(itemStack);
 	}
 
 	@Override
 	public int stackSizeConstraint(int computedMaxStackSize) {
 		return computedMaxStackSize;
 	}
-
 }

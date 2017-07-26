@@ -1,18 +1,16 @@
 package com.Pirhotau.Utils.CustomItemCapabilities;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntityFurnace;
 
-public class StackConstraintFuel implements IStackConstraint {
+public class SlotConstraintFree extends SlotConstraint {
 
 	@Override
 	public boolean itemTypeConstraint(ItemStack storedStack, ItemStack itemStack) {
-		return TileEntityFurnace.isItemFuel(itemStack);
+		return true;
 	}
 
 	@Override
 	public int stackSizeConstraint(int computedMaxStackSize) {
 		return computedMaxStackSize;
 	}
-
 }
