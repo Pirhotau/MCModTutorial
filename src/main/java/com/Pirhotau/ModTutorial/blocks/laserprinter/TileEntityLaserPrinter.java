@@ -433,10 +433,15 @@ Debug.setValue("c5", !isWorking && this.hasMachineEnoughtPowder(RecipesLaserPrin
 	@Override
 	public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
 		if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-			return true;
-		} else return super.hasCapability(capability, facing);
+			if(worldObj.getBlockState(pos).getValue(BlockLaserPrinter.HALF) == EnumHalf.BOTTOM) {
+				return true;
+			} else if(worldObj.getBlockState(pos.down()).getValue(BlockLaserPrinter.HALF) == EnumHalf.BOTTOM) {
+				return worldObj.getTileEntity(pos.down()).hasCapability(capability, facing);
+			}
+			else return false;
+		}
 		
-		//return (facing == null && capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) || super.hasCapability(capability, facing);
+		return super.hasCapability(capability, facing);
 	}
 	
 	@Nullable
