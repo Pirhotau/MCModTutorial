@@ -3,6 +3,7 @@ package com.Pirhotau.ModTutorial.blocks.laserprinter;
 import javax.annotation.Nullable;
 
 import com.Pirhotau.Debug.Debug;
+import com.Pirhotau.ModTutorial.Energy.EnergyReceiver;
 import com.Pirhotau.ModTutorial.items.ModTutorialItems;
 import com.Pirhotau.Utils.CustomItemCapabilities.AdvancedItemStackHandler;
 import com.Pirhotau.Utils.CustomItemCapabilities.SlotConstraintItem;
@@ -29,6 +30,8 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 	
 	/** Machine inventory */
 	private AdvancedItemStackHandler inventory;
+	/** The energy container of the machine */
+	private EnergyReceiver energy;
 	
 	/** If the machine is working */
 	private boolean isWorking;
@@ -45,14 +48,14 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 	
 	public TileEntityLaserPrinter() {
 		super();
-		inventory = new AdvancedItemStackHandler(6);
+		this.inventory = new AdvancedItemStackHandler(6);
 		
-		inventory.addConstraint(new SlotConstraintItemAndQuantity(ModTutorialItems.laserSource, 1), 0);
-		inventory.addConstraint(new SlotConstraintItemAndQuantity(ModTutorialItems.heatShield, 1), 1);
-		inventory.addConstraint(new SlotConstraintItem(ModTutorialItems.titaniumPowder), 2);
-		inventory.addConstraint(new SlotConstraintItem(ModTutorialItems.titaniumPowder), 3);
-		inventory.addConstraint(new SlotConstraintItemAndQuantity(ModTutorialItems.build, 1), 4);
-		inventory.addConstraint(new SlotConstraintItemAndQuantity(ModTutorialItems.usbStick, 1), 5);
+		this.inventory.addConstraint(new SlotConstraintItemAndQuantity(ModTutorialItems.laserSource, 1), 0);
+		this.inventory.addConstraint(new SlotConstraintItemAndQuantity(ModTutorialItems.heatShield, 1), 1);
+		this.inventory.addConstraint(new SlotConstraintItem(ModTutorialItems.titaniumPowder), 2);
+		this.inventory.addConstraint(new SlotConstraintItem(ModTutorialItems.titaniumPowder), 3);
+		this.inventory.addConstraint(new SlotConstraintItemAndQuantity(ModTutorialItems.build, 1), 4);
+		this.inventory.addConstraint(new SlotConstraintItemAndQuantity(ModTutorialItems.usbStick, 1), 5);
 		
 		isWorking = false;
 		
