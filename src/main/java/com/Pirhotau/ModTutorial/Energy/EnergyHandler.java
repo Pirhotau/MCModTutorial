@@ -1,5 +1,6 @@
 package com.Pirhotau.ModTutorial.Energy;
 
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.energy.IEnergyStorage;
 
 public abstract class EnergyHandler implements IEnergyStorage {
@@ -62,6 +63,32 @@ public abstract class EnergyHandler implements IEnergyStorage {
     public boolean canReceive()
     {
         return this.maxReceive > 0;
+    }
+    
+    /**
+     * Allows to save energy
+     * 
+     * @param nbt
+     * @return
+     */
+    public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
+    	NBTTagCompound nbtEnergy = new NBTTagCompound();
+    	nbtEnergy.setInteger("energy", this.energy);
+    	
+    	nbt.setTag("energy", nbtEnergy);
+    	return nbt;
+    }
+    
+    /**
+     * Allows to read energy
+     * 
+     * @param nbt
+     */
+    public void readFromNBT(NBTTagCompound nbt) {
+    	if(nbt.hasKey("energy")) {
+    		NBTTagCompound nbtEnergy = nbt.getCompoundTag("energy");
+    		this.energy = nbtEnergy.getInteger("energy");
+    	}
     }
 
 }
