@@ -27,6 +27,10 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 	private static int RAKE_COOLDOWN = 25;
 	/** Cooldown for the fusion - Do nothing (idle) */
 	private static int FUSION_COOLDOWN = 50;
+	/** Needed energy per tick for the rake */
+	private static int RAKE_ENERGY = 100; // per game tick, so 200 RF/t in game
+	/** Needed energy per tick for the fusion */
+	private static int FUSION_ENERGY = 400; // per game tick, so 800 RF/t in game
 	
 	/** Machine inventory */
 	private AdvancedItemStackHandler inventory;
@@ -185,6 +189,9 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 		
 		// First, check if the machine is able to work
 		if(isMachineReadyToWork()) {
+			// Consume some energy
+			this.consumeEnergy();
+			
 			// Rake operation
 			if(this.operation == EnumLaserOperation.RAKE) {
 				// If timer starts (on rake)
@@ -260,7 +267,10 @@ Debug.setValue("c5", !isWorking && this.hasMachineEnoughtPowder(RecipesLaserPrin
 							|| isWorking && this.hasMachineEnoughtPowder(this.remainingNeededMaterial));
 							if(!isWorking && this.hasMachineEnoughtPowder(RecipesLaserPrinter.instance().getMaterial(stackRecipe)) 
 									|| isWorking && this.hasMachineEnoughtPowder(this.remainingNeededMaterial)) {
-								return true;
+								// If the machine has enough energy to work
+								if(this.hasEnoughEnergy()) {
+									return true;
+								}
 							}
 						}
 					}
@@ -329,6 +339,32 @@ Debug.setValue("c5", !isWorking && this.hasMachineEnoughtPowder(RecipesLaserPrin
 		}
 		return false;
 	}
+	
+	/**
+	 * Returns true if the machine has enough energy to work
+	 * 
+	 * @return
+	 */
+	private boolean hasEnoughEnergy() {
+		if(isWorking) {
+			if(this.operation == EnumLaserOperation.RAKE) return this.energy.canConsume(RAKE_ENERGY);
+			else if (this.operation == EnumLaserOperation.FUSION) return this.energy.canConsume(FUSION_ENERGY);
+			else return false;
+		} else {
+			return this.energy.canConsume(Math.max(RAKE_ENERGY, FUSION_ENERGY));
+		}
+	}
+	
+	/**
+	 * When the machine is working, consume some energy
+	 */
+	private void consumeEnergy() {
+		if(isWorking) {
+			if(this.operation == EnumLaserOperation.RAKE) this.energy.consume(RAKE_ENERGY);
+			else if (this.operation == EnumLaserOperation.FUSION) this.energy.consume(FUSION_ENERGY);
+		}
+	}
+	
 	
 	/**
 	 * Creates a new build based on a particular recipe
