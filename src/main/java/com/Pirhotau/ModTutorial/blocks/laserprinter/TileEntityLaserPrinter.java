@@ -478,6 +478,15 @@ Debug.setValue("c5", !isWorking && this.hasMachineEnoughtPowder(RecipesLaserPrin
 		}
 	}
 	
+	/**
+	 * Returns the "rate" of energy in the block in [0; 100]
+	 * 
+	 * @return
+	 */
+	public int getEnergy() {
+		return (this.energy.getEnergyStored() * 100) / this.energy.getMaxEnergyStored();
+	}
+	
 	@Override
 	public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
 		if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
