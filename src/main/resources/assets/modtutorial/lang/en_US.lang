@@ -12,4 +12,5 @@ tile.titanium_ore.name=Rutile
 tile.pifurnace.name=Pirhotau's powerful furnace
 tile.cooker.name=Cooker
 tile.laserprinter.name=Laser printer
+tile.infiniteenergyprovider.name=Infinite Energy Provider
 itemGroup.Tutorial mod=Pi's mod

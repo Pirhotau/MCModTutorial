@@ -8,7 +8,7 @@ import net.minecraft.world.World;
 public class BlockInfiniteEnergyProvider extends BlockTileEntity<TileEntityInfiniteEnergyProvider> {
 
 	public BlockInfiniteEnergyProvider() {
-		super("InfiniteEnergyProvider");
+		super("infiniteenergyprovider");
 		
 		this.setHardness((float) 0.4);
 		this.setHarvestLevel("pickaxe", 0);
