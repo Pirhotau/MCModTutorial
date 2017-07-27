@@ -53,6 +53,7 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 	public TileEntityLaserPrinter() {
 		super();
 		this.inventory = new AdvancedItemStackHandler(6);
+		this.energy = new EnergyReceiver(100000, 600);
 		
 		this.inventory.addConstraint(new SlotConstraintItemAndQuantity(ModTutorialItems.laserSource, 1), 0);
 		this.inventory.addConstraint(new SlotConstraintItemAndQuantity(ModTutorialItems.heatShield, 1), 1);
