@@ -30,14 +30,12 @@ public class BlockInfiniteEnergyProvider extends BlockTileEntity<TileEntityInfin
 	 */
 	@Override
 	public Class<TileEntityInfiniteEnergyProvider> getTileEntityClass() {
-		// TODO Auto-generated method stub
-		return null;
+		return TileEntityInfiniteEnergyProvider.class;
 	}
 
 	@Override
 	public TileEntityInfiniteEnergyProvider createTileEntity(World world, IBlockState state) {
-		// TODO Auto-generated method stub
-		return null;
+		return new TileEntityInfiniteEnergyProvider();
 	}
 	/*
 	 * -------------------------------------------------------------------------
