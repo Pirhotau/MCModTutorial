@@ -23,12 +23,13 @@ public class PacketGetLaserPrinterWork implements IMessage {
 	private String rakeProgressFieldName;
 	private String rakeSideFieldName;
 	private String globalProgressFieldName;
+	private String energyFieldName;
 	
 	public PacketGetLaserPrinterWork() {
 		this.messageValid = false;
 	}
 	
-	public PacketGetLaserPrinterWork(BlockPos pos, String className, String rakeProgressFieldName, String rakeSideFieldName, String globalProgressFieldName) {
+	public PacketGetLaserPrinterWork(BlockPos pos, String className, String rakeProgressFieldName, String rakeSideFieldName, String globalProgressFieldName, String energyFieldName) {
 		this.pos = pos;
 		this.messageValid = true;
 		
@@ -36,6 +37,7 @@ public class PacketGetLaserPrinterWork implements IMessage {
 		this.rakeProgressFieldName = rakeProgressFieldName;
 		this.rakeSideFieldName = rakeSideFieldName;
 		this.globalProgressFieldName = globalProgressFieldName;
+		this.energyFieldName = energyFieldName;
 	}
 	
 	@Override
@@ -46,6 +48,7 @@ public class PacketGetLaserPrinterWork implements IMessage {
 			this.rakeProgressFieldName = ByteBufUtils.readUTF8String(buf);
 			this.rakeSideFieldName = ByteBufUtils.readUTF8String(buf);
 			this.globalProgressFieldName = ByteBufUtils.readUTF8String(buf);
+			this.energyFieldName = ByteBufUtils.readUTF8String(buf);
 		} catch (IndexOutOfBoundsException ioe) {
 			System.err.println(ioe.getMessage());
 			return;
@@ -64,6 +67,7 @@ public class PacketGetLaserPrinterWork implements IMessage {
 		ByteBufUtils.writeUTF8String(buf, this.rakeProgressFieldName);
 		ByteBufUtils.writeUTF8String(buf, this.rakeSideFieldName);
 		ByteBufUtils.writeUTF8String(buf, this.globalProgressFieldName);
+		ByteBufUtils.writeUTF8String(buf, this.energyFieldName);
 	}
 	
 	public static class Handler implements IMessageHandler<PacketGetLaserPrinterWork, IMessage> {
@@ -83,8 +87,8 @@ public class PacketGetLaserPrinterWork implements IMessage {
 			if(te.getBlockType() == ModTutorialBlocks.laserprinter) {
 				ModTutorialPacketHandler.INSTANCE.sendTo(
 						new PacketReturnLaserPrinterWork(((TileEntityLaserPrinter)te).getRakeProgress(), ((TileEntityLaserPrinter)te).getRakeSide(),
-						((TileEntityLaserPrinter)te).getGlobalProgress(), message.className, message.rakeProgressFieldName, message.rakeSideFieldName,
-						message.globalProgressFieldName), ctx.getServerHandler().playerEntity);
+						((TileEntityLaserPrinter)te).getGlobalProgress(), ((TileEntityLaserPrinter)te).getEnergy(), message.className, message.rakeProgressFieldName, message.rakeSideFieldName,
+						message.globalProgressFieldName, message.energyFieldName), ctx.getServerHandler().playerEntity);
 			}
 		}
 	}
