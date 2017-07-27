@@ -3,6 +3,7 @@ package com.Pirhotau.ModTutorial.blocks.laserprinter;
 import javax.annotation.Nullable;
 
 import com.Pirhotau.Debug.Debug;
+import com.Pirhotau.ModTutorial.Energy.EnergyReceiver;
 import com.Pirhotau.ModTutorial.items.ModTutorialItems;
 import com.Pirhotau.Utils.CustomItemCapabilities.AdvancedItemStackHandler;
 import com.Pirhotau.Utils.CustomItemCapabilities.SlotConstraintItem;
@@ -18,6 +19,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.items.CapabilityItemHandler;
 
 public class TileEntityLaserPrinter extends TileEntity implements ICapabilityProvider, ITickable {
@@ -26,9 +28,15 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 	private static int RAKE_COOLDOWN = 25;
 	/** Cooldown for the fusion - Do nothing (idle) */
 	private static int FUSION_COOLDOWN = 50;
+	/** Needed energy per tick for the rake */
+	private static int RAKE_ENERGY = 100; // per game tick, so 200 RF/t in game
+	/** Needed energy per tick for the fusion */
+	private static int FUSION_ENERGY = 400; // per game tick, so 800 RF/t in game
 	
 	/** Machine inventory */
 	private AdvancedItemStackHandler inventory;
+	/** The energy container of the machine */
+	private EnergyReceiver energy;
 	
 	/** If the machine is working */
 	private boolean isWorking;
@@ -45,14 +53,15 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 	
 	public TileEntityLaserPrinter() {
 		super();
-		inventory = new AdvancedItemStackHandler(6);
+		this.inventory = new AdvancedItemStackHandler(6);
+		this.energy = new EnergyReceiver(100000, 600);
 		
-		inventory.addConstraint(new SlotConstraintItemAndQuantity(ModTutorialItems.laserSource, 1), 0);
-		inventory.addConstraint(new SlotConstraintItemAndQuantity(ModTutorialItems.heatShield, 1), 1);
-		inventory.addConstraint(new SlotConstraintItem(ModTutorialItems.titaniumPowder), 2);
-		inventory.addConstraint(new SlotConstraintItem(ModTutorialItems.titaniumPowder), 3);
-		inventory.addConstraint(new SlotConstraintItemAndQuantity(ModTutorialItems.build, 1), 4);
-		inventory.addConstraint(new SlotConstraintItemAndQuantity(ModTutorialItems.usbStick, 1), 5);
+		this.inventory.addConstraint(new SlotConstraintItemAndQuantity(ModTutorialItems.laserSource, 1), 0);
+		this.inventory.addConstraint(new SlotConstraintItemAndQuantity(ModTutorialItems.heatShield, 1), 1);
+		this.inventory.addConstraint(new SlotConstraintItem(ModTutorialItems.titaniumPowder), 2);
+		this.inventory.addConstraint(new SlotConstraintItem(ModTutorialItems.titaniumPowder), 3);
+		this.inventory.addConstraint(new SlotConstraintItemAndQuantity(ModTutorialItems.build, 1), 4);
+		this.inventory.addConstraint(new SlotConstraintItemAndQuantity(ModTutorialItems.usbStick, 1), 5);
 		
 		isWorking = false;
 		
@@ -98,6 +107,11 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 		}
 		
 		nbt.setInteger("timer", this.timer);
+		
+		if(this.energy != null) {
+			this.energy.writeToNBT(nbt);
+		}
+		
 		return super.writeToNBT(nbt);
 	}
 
@@ -120,8 +134,10 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 			this.stackRecipe = ItemStack.loadItemStackFromNBT(nbt.getCompoundTag("stackRecipe"));
 		} else this.stackRecipe = null;
 		
-		
 		this.timer = nbt.getInteger("timer");
+		
+		this.energy.readFromNBT(nbt);
+		
 		super.readFromNBT(nbt);
 	}
 
@@ -175,6 +191,9 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 		
 		// First, check if the machine is able to work
 		if(isMachineReadyToWork()) {
+			// Consume some energy
+			this.consumeEnergy();
+			
 			// Rake operation
 			if(this.operation == EnumLaserOperation.RAKE) {
 				// If timer starts (on rake)
@@ -250,7 +269,10 @@ Debug.setValue("c5", !isWorking && this.hasMachineEnoughtPowder(RecipesLaserPrin
 							|| isWorking && this.hasMachineEnoughtPowder(this.remainingNeededMaterial));
 							if(!isWorking && this.hasMachineEnoughtPowder(RecipesLaserPrinter.instance().getMaterial(stackRecipe)) 
 									|| isWorking && this.hasMachineEnoughtPowder(this.remainingNeededMaterial)) {
-								return true;
+								// If the machine has enough energy to work
+								if(this.hasEnoughEnergy()) {
+									return true;
+								}
 							}
 						}
 					}
@@ -319,6 +341,32 @@ Debug.setValue("c5", !isWorking && this.hasMachineEnoughtPowder(RecipesLaserPrin
 		}
 		return false;
 	}
+	
+	/**
+	 * Returns true if the machine has enough energy to work
+	 * 
+	 * @return
+	 */
+	private boolean hasEnoughEnergy() {
+		if(isWorking) {
+			if(this.operation == EnumLaserOperation.RAKE) return this.energy.canConsume(RAKE_ENERGY);
+			else if (this.operation == EnumLaserOperation.FUSION) return this.energy.canConsume(FUSION_ENERGY);
+			else return false;
+		} else {
+			return this.energy.canConsume(Math.max(RAKE_ENERGY, FUSION_ENERGY));
+		}
+	}
+	
+	/**
+	 * When the machine is working, consume some energy
+	 */
+	private void consumeEnergy() {
+		if(isWorking) {
+			if(this.operation == EnumLaserOperation.RAKE) this.energy.consume(RAKE_ENERGY);
+			else if (this.operation == EnumLaserOperation.FUSION) this.energy.consume(FUSION_ENERGY);
+		}
+	}
+	
 	
 	/**
 	 * Creates a new build based on a particular recipe
@@ -439,6 +487,12 @@ Debug.setValue("c5", !isWorking && this.hasMachineEnoughtPowder(RecipesLaserPrin
 				return worldObj.getTileEntity(pos.down()).hasCapability(capability, facing);
 			}
 			else return false;
+		} else if(capability == CapabilityEnergy.ENERGY) {
+			if(worldObj.getBlockState(pos).getValue(BlockLaserPrinter.HALF) == EnumHalf.BOTTOM) {
+				return true;
+			} else if(worldObj.getBlockState(pos.down()).getValue(BlockLaserPrinter.HALF) == EnumHalf.BOTTOM) {
+				return worldObj.getTileEntity(pos.down()).hasCapability(capability, facing);
+			}
 		}
 		
 		return super.hasCapability(capability, facing);
@@ -457,9 +511,14 @@ Debug.setValue("c5", !isWorking && this.hasMachineEnoughtPowder(RecipesLaserPrin
 					return worldObj.getTileEntity(pos.down()).getCapability(capability, facing);
 				} else return null;
 			}
+		} else if(capability == CapabilityEnergy.ENERGY) {
+			if(worldObj.getBlockState(pos).getValue(BlockLaserPrinter.HALF) == EnumHalf.BOTTOM) {
+				return (T) this.energy;
+			} else if(worldObj.getBlockState(pos.down()).getValue(BlockLaserPrinter.HALF) == EnumHalf.BOTTOM) {
+				return worldObj.getTileEntity(pos.down()).getCapability(capability, facing);
+			}
 		}
 		return super.getCapability(capability, facing);
-		//return (facing == null && capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) ? (T)inventory : super.getCapability(capability, facing);
 	}
 	
 }
