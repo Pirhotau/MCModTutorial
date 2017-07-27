@@ -519,7 +519,6 @@ Debug.setValue("c5", !isWorking && this.hasMachineEnoughtPowder(RecipesLaserPrin
 			}
 		}
 		return super.getCapability(capability, facing);
-		//return (facing == null && capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) ? (T)inventory : super.getCapability(capability, facing);
 	}
 	
 }
