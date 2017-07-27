@@ -19,6 +19,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.items.CapabilityItemHandler;
 
 public class TileEntityLaserPrinter extends TileEntity implements ICapabilityProvider, ITickable {
@@ -486,6 +487,12 @@ Debug.setValue("c5", !isWorking && this.hasMachineEnoughtPowder(RecipesLaserPrin
 				return worldObj.getTileEntity(pos.down()).hasCapability(capability, facing);
 			}
 			else return false;
+		} else if(capability == CapabilityEnergy.ENERGY) {
+			if(worldObj.getBlockState(pos).getValue(BlockLaserPrinter.HALF) == EnumHalf.BOTTOM) {
+				return true;
+			} else if(worldObj.getBlockState(pos.down()).getValue(BlockLaserPrinter.HALF) == EnumHalf.BOTTOM) {
+				return worldObj.getTileEntity(pos.down()).hasCapability(capability, facing);
+			}
 		}
 		
 		return super.hasCapability(capability, facing);
@@ -503,6 +510,12 @@ Debug.setValue("c5", !isWorking && this.hasMachineEnoughtPowder(RecipesLaserPrin
 				if(worldObj.getBlockState(pos.down()).getValue(BlockLaserPrinter.HALF) == EnumHalf.BOTTOM) {
 					return worldObj.getTileEntity(pos.down()).getCapability(capability, facing);
 				} else return null;
+			}
+		} else if(capability == CapabilityEnergy.ENERGY) {
+			if(worldObj.getBlockState(pos).getValue(BlockLaserPrinter.HALF) == EnumHalf.BOTTOM) {
+				return (T) this.energy;
+			} else if(worldObj.getBlockState(pos.down()).getValue(BlockLaserPrinter.HALF) == EnumHalf.BOTTOM) {
+				return worldObj.getTileEntity(pos.down()).getCapability(capability, facing);
 			}
 		}
 		return super.getCapability(capability, facing);
