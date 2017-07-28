@@ -19,10 +19,13 @@ public class GuiLaserPrinter extends GuiContainer {
 	@SuppressWarnings("unused") private Container inventorySlotsIn;
 	private static final ResourceLocation BG_TEXTURE = new ResourceLocation(ModTutorial.MODID,
 			"textures/gui/container/laserprinter.png");
+	private static final ResourceLocation GUI_RESOURCES = new ResourceLocation(ModTutorial.MODID,
+			"textures/gui/gui_resources.png");
 	
 	public static int rakeProgress;
 	public static EnumLRSide rakeSide;
 	public static int globalProgress;
+	public static int energy;
 	
 	private int sync;
 	
@@ -39,6 +42,20 @@ public class GuiLaserPrinter extends GuiContainer {
 	private static final int GLOBAL_BAR_TEXTURE_Y = 0;
 	private static final int GLOBAL_BAR_WIDTH = 27;
 	private static final int GLOBAL_BAR_HEIGHT = 18;
+	
+	private static final int ENERGY_E_BAR_POS_X = 8;
+	private static final int ENERGY_E_BAR_POS_Y = 15;
+	private static final int ENERGY_E_BAR_TEXTURE_X = 0;
+	private static final int ENERGY_E_BAR_TEXTURE_Y = 0;
+	private static final int ENERGY_E_BAR_WIDTH = 16;
+	private static final int ENERGY_E_BAR_HEIGHT = 44;
+	
+	private static final int ENERGY_F_BAR_POS_X = ENERGY_E_BAR_POS_X;
+	private static final int ENERGY_F_BAR_POS_Y = ENERGY_E_BAR_POS_Y;
+	private static final int ENERGY_F_BAR_TEXTURE_X = 16;
+	private static final int ENERGY_F_BAR_TEXTURE_Y = 0;
+	private static final int ENERGY_F_BAR_WIDTH = ENERGY_E_BAR_WIDTH;
+	private static final int ENERGY_F_BAR_HEIGHT = ENERGY_E_BAR_HEIGHT;
 
 	public GuiLaserPrinter(TileEntityLaserPrinter te, Container inventorySlotsIn, InventoryPlayer playerInv) {
 		super(inventorySlotsIn);
@@ -65,15 +82,18 @@ public class GuiLaserPrinter extends GuiContainer {
 		if(sync == 0) {
 			ModTutorialPacketHandler.INSTANCE.sendToServer(
 					new PacketGetLaserPrinterWork(te.getPos(), "com.Pirhotau.ModTutorial.blocks.laserprinter.GuiLaserPrinter",
-							"rakeProgress", "rakeSide", "globalProgress"));
+							"rakeProgress", "rakeSide", "globalProgress", "energy"));
 		}
 		
 		this.drawRakeProgress();
 		this.drawGlobalProgress();
+		this.drawEnergy();
 	}
 	
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+		GlStateManager.color(1, 1, 1, 1);
+		mc.getTextureManager().bindTexture(BG_TEXTURE);
 		String name = I18n.format(ModTutorialBlocks.laserprinter.getUnlocalizedName() + ".name");
 		fontRendererObj.drawString(name, xSize / 2 - fontRendererObj.getStringWidth(name) / 2, 6, 0x404040);
 		fontRendererObj.drawString(playerInv.getDisplayName().getUnformattedText(), 8, ySize - 94, 0x404040);
@@ -83,6 +103,9 @@ public class GuiLaserPrinter extends GuiContainer {
 	 * Draws the progress bar of the rake
 	 */
 	private void drawRakeProgress() {
+		GlStateManager.color(1, 1, 1, 1);
+		mc.getTextureManager().bindTexture(BG_TEXTURE);
+		
 		int x = (width - xSize) / 2;
 		int y = (height - ySize) / 2;
 
@@ -104,6 +127,9 @@ public class GuiLaserPrinter extends GuiContainer {
 	 * Draws the whole progress of the current build
 	 */
 	private void drawGlobalProgress() {
+		GlStateManager.color(1, 1, 1, 1);
+		mc.getTextureManager().bindTexture(BG_TEXTURE);
+		
 		int x = (width - xSize) / 2;
 		int y = (height - ySize) / 2;
 		
@@ -112,6 +138,26 @@ public class GuiLaserPrinter extends GuiContainer {
 			
 			this.drawTexturedModalRect(GLOBAL_BAR_POS_X + x, GLOBAL_BAR_POS_Y + y + GLOBAL_BAR_HEIGHT - progress,
 					GLOBAL_BAR_TEXTURE_X, GLOBAL_BAR_TEXTURE_Y + GLOBAL_BAR_HEIGHT - progress, GLOBAL_BAR_WIDTH, progress);
+		}
+	}
+	
+	/**
+	 * Draws the current level of energy
+	 */
+	private void drawEnergy() {
+		GlStateManager.color(1, 1, 1, 1);
+		mc.getTextureManager().bindTexture(GUI_RESOURCES);
+		
+		int x = (width - xSize) / 2;
+		int y = (height - ySize) / 2;
+		
+		
+		this.drawTexturedModalRect(ENERGY_E_BAR_POS_X + x, ENERGY_E_BAR_POS_Y + y, ENERGY_E_BAR_TEXTURE_X, ENERGY_E_BAR_TEXTURE_Y, ENERGY_E_BAR_WIDTH, ENERGY_E_BAR_HEIGHT);
+		
+		if(energy != 0) {
+			int progress = (energy * ENERGY_E_BAR_HEIGHT) / 100;
+			this.drawTexturedModalRect(ENERGY_F_BAR_POS_X + x, ENERGY_F_BAR_POS_Y + y + ENERGY_F_BAR_HEIGHT - progress,
+					ENERGY_F_BAR_TEXTURE_X, ENERGY_F_BAR_TEXTURE_Y + ENERGY_F_BAR_HEIGHT - progress, ENERGY_F_BAR_WIDTH, progress);
 		}
 	}
 }

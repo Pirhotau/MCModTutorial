@@ -20,24 +20,28 @@ public class PacketReturnLaserPrinterWork implements IMessage {
 	private int rakeProgress;
 	private EnumLRSide rakeSide;
 	private int globalProgress;
+	private int energy;
 	
 	private String className;
 	private String rakeProgressFieldName;
 	private String rakeSideFieldName;
 	private String globalProgressFieldName;
+	private String energyFieldName;
 	
 	public PacketReturnLaserPrinterWork() {
 		this.messageValid = false;
 	}
 	
-	public PacketReturnLaserPrinterWork(int rakeProgress, EnumLRSide rakeSide, int globalProgress, String className, String rakeProgressFieldName, String rakeSideFieldName, String globalProgressFieldName) {
+	public PacketReturnLaserPrinterWork(int rakeProgress, EnumLRSide rakeSide, int globalProgress, int energy, String className, String rakeProgressFieldName, String rakeSideFieldName, String globalProgressFieldName, String energyFieldName) {
 		this.rakeProgress = rakeProgress;
 		this.rakeSide = rakeSide;
 		this.globalProgress = globalProgress;
+		this.energy = energy;
 		this.className = className;
 		this.rakeProgressFieldName = rakeProgressFieldName;
 		this.rakeSideFieldName = rakeSideFieldName;
 		this.globalProgressFieldName = globalProgressFieldName;
+		this.energyFieldName = energyFieldName;
 		this.messageValid = true;
 	}
 	
@@ -47,10 +51,12 @@ public class PacketReturnLaserPrinterWork implements IMessage {
 			this.rakeProgress = buf.readInt();
 			this.rakeSide = EnumLRSide.values()[buf.readInt()];
 			this.globalProgress = buf.readInt();
+			this.energy = buf.readInt();
 			this.className = ByteBufUtils.readUTF8String(buf);
 			this.rakeProgressFieldName = ByteBufUtils.readUTF8String(buf);
 			this.rakeSideFieldName = ByteBufUtils.readUTF8String(buf);
 			this.globalProgressFieldName = ByteBufUtils.readUTF8String(buf);
+			this.energyFieldName = ByteBufUtils.readUTF8String(buf);
 		} catch (IndexOutOfBoundsException ioe) {
 			System.err.println(ioe.getMessage());
 			return;
@@ -65,10 +71,12 @@ public class PacketReturnLaserPrinterWork implements IMessage {
 		buf.writeInt(this.rakeProgress);
 		buf.writeInt(this.rakeSide.getIndex());
 		buf.writeInt(this.globalProgress);
+		buf.writeInt(this.energy);
 		ByteBufUtils.writeUTF8String(buf, this.className);
 		ByteBufUtils.writeUTF8String(buf, this.rakeProgressFieldName);
 		ByteBufUtils.writeUTF8String(buf, this.rakeSideFieldName);
 		ByteBufUtils.writeUTF8String(buf, this.globalProgressFieldName);
+		ByteBufUtils.writeUTF8String(buf, this.energyFieldName);
 	}
 
 	public static class Handler implements IMessageHandler<PacketReturnLaserPrinterWork, IMessage> {
@@ -88,9 +96,11 @@ public class PacketReturnLaserPrinterWork implements IMessage {
 				Field rakeProgressField = clazz.getDeclaredField(message.rakeProgressFieldName);
 				Field rakeSideField = clazz.getDeclaredField(message.rakeSideFieldName);
 				Field globalProgressField = clazz.getDeclaredField(message.globalProgressFieldName);
+				Field energyField = clazz.getDeclaredField(message.energyFieldName);
 				rakeProgressField.setInt(clazz, message.rakeProgress);
 				rakeSideField.set(clazz, message.rakeSide);
 				globalProgressField.setInt(clazz, message.globalProgress);
+				energyField.setInt(clazz, message.energy);
 			} catch (Exception e) {
 				e.printStackTrace();
 				
