@@ -37,16 +37,17 @@ public class TileEntityInfiniteEnergyProvider extends TileEntity implements ICap
 	
 	@Override
 	public void update() {
-		this.energy.createEnergy(this.energy.getMaxEnergyStored() - this.energy.getEnergyStored());
-		this.markDirty();
-		
-		this.transmitPower(this.pos.down(), EnumFacing.UP);
-		this.transmitPower(this.pos.up(), EnumFacing.DOWN);
-		this.transmitPower(this.pos.north(), EnumFacing.SOUTH);
-		this.transmitPower(this.pos.south(), EnumFacing.NORTH);
-		this.transmitPower(this.pos.east(), EnumFacing.EAST);
-		this.transmitPower(this.pos.west(), EnumFacing.WEST);
-		
+		if(!this.worldObj.isRemote) {
+			this.energy.createEnergy(this.energy.getMaxEnergyStored() - this.energy.getEnergyStored());
+			this.markDirty();
+			
+			this.transmitPower(this.pos.down(), EnumFacing.UP);
+			this.transmitPower(this.pos.up(), EnumFacing.DOWN);
+			this.transmitPower(this.pos.north(), EnumFacing.SOUTH);
+			this.transmitPower(this.pos.south(), EnumFacing.NORTH);
+			this.transmitPower(this.pos.east(), EnumFacing.EAST);
+			this.transmitPower(this.pos.west(), EnumFacing.WEST);
+		}
 	}
 	
 	private void transmitPower(BlockPos pos, EnumFacing facing) {
@@ -58,5 +59,4 @@ public class TileEntityInfiniteEnergyProvider extends TileEntity implements ICap
 			}
 		}
 	}
-
 }
