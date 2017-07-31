@@ -1,7 +1,7 @@
 package com.Pirhotau.ModTutorial.Network;
 
-import com.Pirhotau.ModTutorial.blocks.ModTutorialBlocks;
-import com.Pirhotau.ModTutorial.blocks.laserprinter.TileEntityLaserPrinter;
+import com.Pirhotau.ModTutorial.Blocks.ModTutorialBlocks;
+import com.Pirhotau.ModTutorial.Blocks.Machine.laserprinter.TileEntityLaserPrinter;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.tileentity.TileEntity;

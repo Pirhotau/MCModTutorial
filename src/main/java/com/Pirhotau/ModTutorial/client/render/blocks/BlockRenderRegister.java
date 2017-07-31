@@ -1,6 +1,6 @@
 package com.Pirhotau.ModTutorial.client.render.blocks;
 
-import com.Pirhotau.ModTutorial.blocks.ModTutorialBlocks;
+import com.Pirhotau.ModTutorial.Blocks.ModTutorialBlocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
