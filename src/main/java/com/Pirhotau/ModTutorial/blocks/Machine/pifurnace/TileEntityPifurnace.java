@@ -1,4 +1,4 @@
-package com.Pirhotau.ModTutorial.blocks.pifurnace;
+package com.Pirhotau.ModTutorial.blocks.Machine.pifurnace;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;

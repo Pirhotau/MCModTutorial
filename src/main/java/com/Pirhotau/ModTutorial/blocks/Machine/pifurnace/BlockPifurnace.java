@@ -1,4 +1,4 @@
-package com.Pirhotau.ModTutorial.blocks.pifurnace;
+package com.Pirhotau.ModTutorial.blocks.Machine.pifurnace;
 
 import com.Pirhotau.ModTutorial.blocks.BlockTileEntity;
 

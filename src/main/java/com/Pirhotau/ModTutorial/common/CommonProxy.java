@@ -1,8 +1,8 @@
 package com.Pirhotau.ModTutorial.common;
 
 import com.Pirhotau.Debug.Debug;
-import com.Pirhotau.ModTutorial.Network.ModTutorialPacketHandler;
 import com.Pirhotau.ModTutorial.blocks.ModTutorialBlocks;
+import com.Pirhotau.ModTutorial.Network.ModTutorialPacketHandler;
 import com.Pirhotau.ModTutorial.crafting.ModTutorialCrafting;
 import com.Pirhotau.ModTutorial.items.ModTutorialItems;
 

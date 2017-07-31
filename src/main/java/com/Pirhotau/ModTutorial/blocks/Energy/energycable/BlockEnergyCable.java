@@ -1,4 +1,4 @@
-package com.Pirhotau.ModTutorial.blocks.energycable;
+package com.Pirhotau.ModTutorial.blocks.Energy.energycable;
 
 import com.Pirhotau.ModTutorial.blocks.BlockTileEntity;
 

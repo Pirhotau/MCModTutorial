@@ -1,4 +1,4 @@
-package com.Pirhotau.ModTutorial.blocks.laserprinter;
+package com.Pirhotau.ModTutorial.blocks.Machine.laserprinter;
 
 import com.Pirhotau.ModTutorial.blocks.BlockTileEntity;
 import com.Pirhotau.ModTutorial.common.ModTutorial;

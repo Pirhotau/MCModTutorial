@@ -1,4 +1,4 @@
-package com.Pirhotau.ModTutorial.blocks.infiniteenergyprovider;
+package com.Pirhotau.ModTutorial.blocks.Energy.infiniteenergyprovider;
 
 import com.Pirhotau.ModTutorial.Energy.EnergyProvider;
 

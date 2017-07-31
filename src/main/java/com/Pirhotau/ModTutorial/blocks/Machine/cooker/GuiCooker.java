@@ -1,4 +1,4 @@
-package com.Pirhotau.ModTutorial.blocks.cooker;
+package com.Pirhotau.ModTutorial.blocks.Machine.cooker;
 
 import com.Pirhotau.ModTutorial.blocks.ModTutorialBlocks;
 import com.Pirhotau.ModTutorial.common.ModTutorial;

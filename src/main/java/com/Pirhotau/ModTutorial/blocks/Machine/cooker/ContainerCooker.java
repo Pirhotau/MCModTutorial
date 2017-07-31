@@ -1,4 +1,4 @@
-package com.Pirhotau.ModTutorial.blocks.laserprinter;
+package com.Pirhotau.ModTutorial.blocks.Machine.cooker;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -9,24 +9,21 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
-public class ContainerLaserPrinter extends Container {
-	@SuppressWarnings("unused") private TileEntityLaserPrinter te;
-	
-	public ContainerLaserPrinter(IInventory playerInv, TileEntityLaserPrinter te) {
+public class ContainerCooker extends Container {
+
+	@SuppressWarnings("unused")
+	private TileEntityCooker te;
+
+	public ContainerCooker(IInventory playerInv, TileEntityCooker te) {
 		this.te = te;
-		
+
 		IItemHandler handler = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
 		
-		this.addSlotToContainer(new SlotItemHandler(handler, 0, 80, 17));
-		this.addSlotToContainer(new SlotItemHandler(handler, 1, 80, 39));
-		this.addSlotToContainer(new SlotItemHandler(handler, 2, 51, 39));
-		this.addSlotToContainer(new SlotItemHandler(handler, 3, 109, 39));
-		this.addSlotToContainer(new SlotItemHandler(handler, 4, 80, 66));
-		this.addSlotToContainer(new SlotItemHandler(handler, 5, 152, 17));
-		
-		
+		this.addSlotToContainer(new SlotItemHandler(handler, 0, 62, 35));
+		this.addSlotToContainer(new SlotItemHandler(handler, 1, 98, 35));
+
 		int xPos = 8;
-		int yPos = 92;
+		int yPos = 84;
 
 		for (int y = 0; y < 3; ++y) {
 			for (int x = 0; x < 9; ++x) {
@@ -38,7 +35,7 @@ public class ContainerLaserPrinter extends Container {
 			this.addSlotToContainer(new Slot(playerInv, x, xPos + x * 18, yPos + 58));
 		}
 	}
-	
+
 	@Override
 	public ItemStack transferStackInSlot(EntityPlayer player, int index) {
 		ItemStack itemstack = null;
@@ -76,8 +73,7 @@ public class ContainerLaserPrinter extends Container {
 	
 	@Override
 	public boolean canInteractWith(EntityPlayer playerIn) {
-		//return !playerIn.isSpectator();
-		return true;
+		return !playerIn.isSpectator();
 	}
 
 }
