@@ -1,4 +1,4 @@
-package com.Pirhotau.ModTutorial.Common;
+package com.Pirhotau.ModTutorial.common;
 
 import com.Pirhotau.ModTutorial.Handler.ModGuiHandler;
 

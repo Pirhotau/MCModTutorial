@@ -1,16 +1,11 @@
-package com.Pirhotau.ModTutorial.Common;
-
-import com.Pirhotau.ModTutorial.client.render.blocks.BlockRenderRegister;
-import com.Pirhotau.ModTutorial.client.render.items.ItemRenderRegister;
+package com.Pirhotau.ModTutorial.common;
 
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-public class ClientProxy extends CommonProxy {
-	
-	
+public class ServerProxy extends CommonProxy {
 	
 	/*
 	 * Read config file
@@ -19,9 +14,6 @@ public class ClientProxy extends CommonProxy {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		super.preInit(event);
-		
-		ItemRenderRegister.registerItemRenderer();
-		BlockRenderRegister.registerBlockRenderer();
 	}
 
 	/*
@@ -31,8 +23,6 @@ public class ClientProxy extends CommonProxy {
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		super.init(event);
-		
-		
 	}
 	
 	/*
@@ -41,6 +31,5 @@ public class ClientProxy extends CommonProxy {
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
 		super.postInit(event);
-		
 	}
 }

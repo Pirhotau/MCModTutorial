@@ -1,11 +1,17 @@
-package com.Pirhotau.ModTutorial.Common;
+package com.Pirhotau.ModTutorial.common;
+
+import com.Pirhotau.Debug.Debug;
+import com.Pirhotau.ModTutorial.Blocks.ModTutorialBlocks;
+import com.Pirhotau.ModTutorial.Crafting.ModTutorialCrafting;
+import com.Pirhotau.ModTutorial.Items.ModTutorialItems;
+import com.Pirhotau.ModTutorial.Network.ModTutorialPacketHandler;
 
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-public class ServerProxy extends CommonProxy {
+public class CommonProxy {
 	
 	/*
 	 * Read config file
@@ -13,7 +19,10 @@ public class ServerProxy extends CommonProxy {
 	 */
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		super.preInit(event);
+		if(ModTutorial.DEBUG) Debug.setVisible(true);
+		ModTutorialItems.createItems();
+		ModTutorialBlocks.createBlocks();
+		ModTutorialPacketHandler.registerMessages();
 	}
 
 	/*
@@ -22,7 +31,7 @@ public class ServerProxy extends CommonProxy {
 	 */
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
-		super.init(event);
+		ModTutorialCrafting.createRecipes();
 	}
 	
 	/*
@@ -30,6 +39,6 @@ public class ServerProxy extends CommonProxy {
 	 */
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
-		super.postInit(event);
+
 	}
 }
