@@ -1,17 +1,16 @@
-package com.Pirhotau.ModTutorial.Common;
+package com.Pirhotau.ModTutorial.common;
 
-import com.Pirhotau.Debug.Debug;
-import com.Pirhotau.ModTutorial.Blocks.ModTutorialBlocks;
-import com.Pirhotau.ModTutorial.Crafting.ModTutorialCrafting;
-import com.Pirhotau.ModTutorial.Items.ModTutorialItems;
-import com.Pirhotau.ModTutorial.Network.ModTutorialPacketHandler;
+import com.Pirhotau.ModTutorial.client.render.blocks.BlockRenderRegister;
+import com.Pirhotau.ModTutorial.client.render.items.ItemRenderRegister;
 
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-public class CommonProxy {
+public class ClientProxy extends CommonProxy {
+	
+	
 	
 	/*
 	 * Read config file
@@ -19,10 +18,10 @@ public class CommonProxy {
 	 */
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		if(ModTutorial.DEBUG) Debug.setVisible(true);
-		ModTutorialItems.createItems();
-		ModTutorialBlocks.createBlocks();
-		ModTutorialPacketHandler.registerMessages();
+		super.preInit(event);
+		
+		ItemRenderRegister.registerItemRenderer();
+		BlockRenderRegister.registerBlockRenderer();
 	}
 
 	/*
@@ -31,7 +30,9 @@ public class CommonProxy {
 	 */
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
-		ModTutorialCrafting.createRecipes();
+		super.init(event);
+		
+		
 	}
 	
 	/*
@@ -39,6 +40,7 @@ public class CommonProxy {
 	 */
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event) {
-
+		super.postInit(event);
+		
 	}
 }

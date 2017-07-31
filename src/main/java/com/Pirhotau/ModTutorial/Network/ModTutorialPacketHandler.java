@@ -1,6 +1,6 @@
 package com.Pirhotau.ModTutorial.Network;
 
-import com.Pirhotau.ModTutorial.Common.ModTutorial;
+import com.Pirhotau.ModTutorial.common.ModTutorial;
 
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;

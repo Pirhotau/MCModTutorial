@@ -1,7 +1,7 @@
 package com.Pirhotau.ModTutorial.Blocks.Machine.cooker;
 
 import com.Pirhotau.ModTutorial.Blocks.ModTutorialBlocks;
-import com.Pirhotau.ModTutorial.Common.ModTutorial;
+import com.Pirhotau.ModTutorial.common.ModTutorial;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
