@@ -1,9 +1,9 @@
 package com.Pirhotau.ModTutorial.Blocks.Machine.laserprinter;
 
 import com.Pirhotau.ModTutorial.Blocks.ModTutorialBlocks;
+import com.Pirhotau.ModTutorial.Common.ModTutorial;
 import com.Pirhotau.ModTutorial.Network.ModTutorialPacketHandler;
 import com.Pirhotau.ModTutorial.Network.PacketGetLaserPrinterWork;
-import com.Pirhotau.ModTutorial.common.ModTutorial;
 import com.Pirhotau.Utils.Enum.EnumLRSide;
 
 import net.minecraft.client.gui.inventory.GuiContainer;

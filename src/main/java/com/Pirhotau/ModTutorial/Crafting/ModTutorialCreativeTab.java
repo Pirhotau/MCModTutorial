@@ -1,7 +1,7 @@
-package com.Pirhotau.ModTutorial.crafting;
+package com.Pirhotau.ModTutorial.Crafting;
 
-import com.Pirhotau.ModTutorial.common.ModTutorial;
-import com.Pirhotau.ModTutorial.items.ModTutorialItems;
+import com.Pirhotau.ModTutorial.Common.ModTutorial;
+import com.Pirhotau.ModTutorial.Items.ModTutorialItems;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;

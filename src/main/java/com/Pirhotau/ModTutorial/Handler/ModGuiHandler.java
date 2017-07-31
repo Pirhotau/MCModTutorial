@@ -1,4 +1,4 @@
-package com.Pirhotau.ModTutorial.handler;
+package com.Pirhotau.ModTutorial.Handler;
 
 import com.Pirhotau.ModTutorial.Blocks.Machine.cooker.ContainerCooker;
 import com.Pirhotau.ModTutorial.Blocks.Machine.cooker.GuiCooker;

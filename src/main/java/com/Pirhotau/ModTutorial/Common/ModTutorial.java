@@ -1,6 +1,6 @@
-package com.Pirhotau.ModTutorial.common;
+package com.Pirhotau.ModTutorial.Common;
 
-import com.Pirhotau.ModTutorial.handler.ModGuiHandler;
+import com.Pirhotau.ModTutorial.Handler.ModGuiHandler;
 
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;

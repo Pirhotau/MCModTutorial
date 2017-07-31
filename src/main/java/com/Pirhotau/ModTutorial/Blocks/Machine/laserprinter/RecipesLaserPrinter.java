@@ -3,7 +3,7 @@ package com.Pirhotau.ModTutorial.Blocks.Machine.laserprinter;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.Pirhotau.ModTutorial.items.ModTutorialItems;
+import com.Pirhotau.ModTutorial.Items.ModTutorialItems;
 import com.google.common.collect.Maps;
 
 import net.minecraft.item.ItemStack;

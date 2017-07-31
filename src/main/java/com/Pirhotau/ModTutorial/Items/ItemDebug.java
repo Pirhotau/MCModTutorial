@@ -1,7 +1,7 @@
-package com.Pirhotau.ModTutorial.items;
+package com.Pirhotau.ModTutorial.Items;
 
+import com.Pirhotau.ModTutorial.Crafting.ModTutorialCreativeTab;
 import com.Pirhotau.ModTutorial.client.render.items.ItemRenderRegister;
-import com.Pirhotau.ModTutorial.crafting.ModTutorialCreativeTab;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;

@@ -1,8 +1,8 @@
 package com.Pirhotau.ModTutorial.Blocks.Machine.laserprinter;
 
 import com.Pirhotau.ModTutorial.Blocks.BlockTileEntity;
-import com.Pirhotau.ModTutorial.common.ModTutorial;
-import com.Pirhotau.ModTutorial.handler.ModGuiHandler;
+import com.Pirhotau.ModTutorial.Common.ModTutorial;
+import com.Pirhotau.ModTutorial.Handler.ModGuiHandler;
 import com.Pirhotau.Utils.Enum.EnumHalf;
 
 import net.minecraft.block.properties.IProperty;

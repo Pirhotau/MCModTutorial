@@ -1,7 +1,7 @@
-package com.Pirhotau.ModTutorial.crafting;
+package com.Pirhotau.ModTutorial.Crafting;
 
 import com.Pirhotau.ModTutorial.Blocks.ModTutorialBlocks;
-import com.Pirhotau.ModTutorial.items.ModTutorialItems;
+import com.Pirhotau.ModTutorial.Items.ModTutorialItems;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;

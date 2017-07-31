@@ -1,6 +1,6 @@
 package com.Pirhotau.ModTutorial.Blocks;
 
-import com.Pirhotau.ModTutorial.crafting.ModTutorialCreativeTab;
+import com.Pirhotau.ModTutorial.Crafting.ModTutorialCreativeTab;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;

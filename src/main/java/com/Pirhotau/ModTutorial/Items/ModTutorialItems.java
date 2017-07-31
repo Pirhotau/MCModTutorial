@@ -1,4 +1,4 @@
-package com.Pirhotau.ModTutorial.items;
+package com.Pirhotau.ModTutorial.Items;
 
 import net.minecraft.item.Item;
 

@@ -4,7 +4,7 @@ import javax.annotation.Nullable;
 
 import com.Pirhotau.Debug.Debug;
 import com.Pirhotau.ModTutorial.Energy.EnergyReceiver;
-import com.Pirhotau.ModTutorial.items.ModTutorialItems;
+import com.Pirhotau.ModTutorial.Items.ModTutorialItems;
 import com.Pirhotau.Utils.CustomItemCapabilities.AdvancedItemStackHandler;
 import com.Pirhotau.Utils.CustomItemCapabilities.SlotConstraintItem;
 import com.Pirhotau.Utils.CustomItemCapabilities.SlotConstraintItemAndQuantity;
