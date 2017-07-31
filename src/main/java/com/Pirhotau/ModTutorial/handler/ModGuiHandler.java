@@ -1,11 +1,11 @@
 package com.Pirhotau.ModTutorial.handler;
 
-import com.Pirhotau.ModTutorial.blocks.Machine.cooker.ContainerCooker;
-import com.Pirhotau.ModTutorial.blocks.Machine.cooker.GuiCooker;
-import com.Pirhotau.ModTutorial.blocks.Machine.cooker.TileEntityCooker;
-import com.Pirhotau.ModTutorial.blocks.Machine.laserprinter.ContainerLaserPrinter;
-import com.Pirhotau.ModTutorial.blocks.Machine.laserprinter.GuiLaserPrinter;
-import com.Pirhotau.ModTutorial.blocks.Machine.laserprinter.TileEntityLaserPrinter;
+import com.Pirhotau.ModTutorial.Blocks.Machine.cooker.ContainerCooker;
+import com.Pirhotau.ModTutorial.Blocks.Machine.cooker.GuiCooker;
+import com.Pirhotau.ModTutorial.Blocks.Machine.cooker.TileEntityCooker;
+import com.Pirhotau.ModTutorial.Blocks.Machine.laserprinter.ContainerLaserPrinter;
+import com.Pirhotau.ModTutorial.Blocks.Machine.laserprinter.GuiLaserPrinter;
+import com.Pirhotau.ModTutorial.Blocks.Machine.laserprinter.TileEntityLaserPrinter;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;

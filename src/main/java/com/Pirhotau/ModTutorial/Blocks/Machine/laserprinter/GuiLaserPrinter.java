@@ -1,6 +1,6 @@
-package com.Pirhotau.ModTutorial.blocks.Machine.laserprinter;
+package com.Pirhotau.ModTutorial.Blocks.Machine.laserprinter;
 
-import com.Pirhotau.ModTutorial.blocks.ModTutorialBlocks;
+import com.Pirhotau.ModTutorial.Blocks.ModTutorialBlocks;
 import com.Pirhotau.ModTutorial.Network.ModTutorialPacketHandler;
 import com.Pirhotau.ModTutorial.Network.PacketGetLaserPrinterWork;
 import com.Pirhotau.ModTutorial.common.ModTutorial;

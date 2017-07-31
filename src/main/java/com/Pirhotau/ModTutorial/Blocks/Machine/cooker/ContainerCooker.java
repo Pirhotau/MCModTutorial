@@ -1,4 +1,4 @@
-package com.Pirhotau.ModTutorial.blocks.Machine.cooker;
+package com.Pirhotau.ModTutorial.Blocks.Machine.cooker;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;

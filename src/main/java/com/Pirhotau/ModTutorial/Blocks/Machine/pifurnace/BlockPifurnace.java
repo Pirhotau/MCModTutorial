@@ -1,6 +1,6 @@
-package com.Pirhotau.ModTutorial.blocks.Machine.pifurnace;
+package com.Pirhotau.ModTutorial.Blocks.Machine.pifurnace;
 
-import com.Pirhotau.ModTutorial.blocks.BlockTileEntity;
+import com.Pirhotau.ModTutorial.Blocks.BlockTileEntity;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.world.World;

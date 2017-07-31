@@ -1,4 +1,4 @@
-package com.Pirhotau.ModTutorial.blocks.Machine.laserprinter;
+package com.Pirhotau.ModTutorial.Blocks.Machine.laserprinter;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;

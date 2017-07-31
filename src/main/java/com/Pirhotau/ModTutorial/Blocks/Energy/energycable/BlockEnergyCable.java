@@ -1,6 +1,6 @@
-package com.Pirhotau.ModTutorial.blocks.Energy.energycable;
+package com.Pirhotau.ModTutorial.Blocks.Energy.energycable;
 
-import com.Pirhotau.ModTutorial.blocks.BlockTileEntity;
+import com.Pirhotau.ModTutorial.Blocks.BlockTileEntity;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;

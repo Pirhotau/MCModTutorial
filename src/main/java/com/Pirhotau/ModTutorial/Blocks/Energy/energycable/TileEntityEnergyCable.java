@@ -1,4 +1,4 @@
-package com.Pirhotau.ModTutorial.blocks.Energy.energycable;
+package com.Pirhotau.ModTutorial.Blocks.Energy.energycable;
 
 import com.Pirhotau.ModTutorial.Energy.EnergyConnection;
 

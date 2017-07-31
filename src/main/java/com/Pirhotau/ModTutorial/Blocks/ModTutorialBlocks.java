@@ -1,10 +1,10 @@
-package com.Pirhotau.ModTutorial.blocks;
+package com.Pirhotau.ModTutorial.Blocks;
 
-import com.Pirhotau.ModTutorial.blocks.Energy.energycable.BlockEnergyCable;
-import com.Pirhotau.ModTutorial.blocks.Energy.infiniteenergyprovider.BlockInfiniteEnergyProvider;
-import com.Pirhotau.ModTutorial.blocks.Machine.cooker.BlockCooker;
-import com.Pirhotau.ModTutorial.blocks.Machine.laserprinter.BlockLaserPrinter;
-import com.Pirhotau.ModTutorial.blocks.Machine.pifurnace.BlockPifurnace;
+import com.Pirhotau.ModTutorial.Blocks.Energy.energycable.BlockEnergyCable;
+import com.Pirhotau.ModTutorial.Blocks.Energy.infiniteenergyprovider.BlockInfiniteEnergyProvider;
+import com.Pirhotau.ModTutorial.Blocks.Machine.cooker.BlockCooker;
+import com.Pirhotau.ModTutorial.Blocks.Machine.laserprinter.BlockLaserPrinter;
+import com.Pirhotau.ModTutorial.Blocks.Machine.pifurnace.BlockPifurnace;
 
 import net.minecraft.block.Block;
 

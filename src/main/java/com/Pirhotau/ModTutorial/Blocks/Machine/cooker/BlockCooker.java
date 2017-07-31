@@ -1,6 +1,6 @@
-package com.Pirhotau.ModTutorial.blocks.Machine.cooker;
+package com.Pirhotau.ModTutorial.Blocks.Machine.cooker;
 
-import com.Pirhotau.ModTutorial.blocks.BlockTileEntity;
+import com.Pirhotau.ModTutorial.Blocks.BlockTileEntity;
 import com.Pirhotau.ModTutorial.common.ModTutorial;
 import com.Pirhotau.ModTutorial.handler.ModGuiHandler;
 

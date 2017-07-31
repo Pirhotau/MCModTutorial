@@ -1,4 +1,4 @@
-package com.Pirhotau.ModTutorial.blocks;
+package com.Pirhotau.ModTutorial.Blocks;
 
 import com.Pirhotau.ModTutorial.crafting.ModTutorialCreativeTab;
 

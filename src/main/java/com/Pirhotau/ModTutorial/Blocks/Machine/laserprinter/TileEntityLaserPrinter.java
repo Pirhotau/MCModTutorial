@@ -1,4 +1,4 @@
-package com.Pirhotau.ModTutorial.blocks.Machine.laserprinter;
+package com.Pirhotau.ModTutorial.Blocks.Machine.laserprinter;
 
 import javax.annotation.Nullable;
 
