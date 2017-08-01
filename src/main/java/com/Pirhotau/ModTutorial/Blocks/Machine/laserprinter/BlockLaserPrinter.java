@@ -149,7 +149,7 @@ public class BlockLaserPrinter extends BlockTileEntity<TileEntityLaserPrinter> {
 
 	@Override
 	public TileEntityLaserPrinter createTileEntity(World world, IBlockState state) {
-		return new TileEntityLaserPrinter();
+		return new TileEntityLaserPrinter(state);
 	}
 	/*
 	 * -------------------------------------------------------------------------

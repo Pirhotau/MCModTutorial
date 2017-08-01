@@ -81,7 +81,7 @@ public class GuiLaserPrinter extends GuiContainer {
 		sync %= 10;
 		if(sync == 0) {
 			ModTutorialPacketHandler.INSTANCE.sendToServer(
-					new PacketGetLaserPrinterWork(te.getPos(), "com.Pirhotau.ModTutorial.blocks.laserprinter.GuiLaserPrinter",
+					new PacketGetLaserPrinterWork(te.getPos(), "com.Pirhotau.ModTutorial.Blocks.Machine.laserprinter.GuiLaserPrinter",
 							"rakeProgress", "rakeSide", "globalProgress", "energy"));
 		}
 		

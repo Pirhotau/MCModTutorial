@@ -3,6 +3,7 @@ package com.Pirhotau.ModTutorial.Blocks.Machine.laserprinter;
 import javax.annotation.Nullable;
 
 import com.Pirhotau.Debug.Debug;
+import com.Pirhotau.ModTutorial.Blocks.ModTutorialBlocks;
 import com.Pirhotau.ModTutorial.Energy.EnergyReceiver;
 import com.Pirhotau.ModTutorial.Items.ModTutorialItems;
 import com.Pirhotau.Utils.CustomItemCapabilities.AdvancedItemStackHandler;
@@ -12,6 +13,7 @@ import com.Pirhotau.Utils.Enum.EnumHalf;
 import com.Pirhotau.Utils.Enum.EnumLRSide;
 import com.Pirhotau.Utils.Enum.EnumLaserOperation;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -38,6 +40,8 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 	/** The energy container of the machine */
 	private EnergyReceiver energy;
 	
+	private IBlockState state;
+	
 	/** If the machine is working */
 	private boolean isWorking;
 	/** The remaining material needed to build the part, based on the recipe */
@@ -51,8 +55,10 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 	/** The time which count */
 	private int timer;
 	
-	public TileEntityLaserPrinter() {
+	public TileEntityLaserPrinter(IBlockState state) {
 		super();
+		this.state = state;
+		
 		this.inventory = new AdvancedItemStackHandler(6);
 		this.energy = new EnergyReceiver(100000, 600);
 		
@@ -247,7 +253,7 @@ public class TileEntityLaserPrinter extends TileEntity implements ICapabilityPro
 	 * 
 	 * @return
 	 */
-	private boolean isMachineReadyToWork() { // TODO Take into account the removing of a slot and build nbt
+	private boolean isMachineReadyToWork() {
 		// Get the USBStick recipe and check if it is not null
 		ItemStack stackRecipe = getUSBStickRecipe();
 Debug.setValue("c0", stackRecipe == null ? "null" : stackRecipe.toString());
@@ -490,20 +496,25 @@ Debug.setValue("c5", !isWorking && this.hasMachineEnoughtPowder(RecipesLaserPrin
 	@Override
 	public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
 		if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-			if(worldObj.getBlockState(pos).getValue(BlockLaserPrinter.HALF) == EnumHalf.BOTTOM) {
+			if(state.getValue(BlockLaserPrinter.HALF) == EnumHalf.BOTTOM) {
 				return true;
-			} else if(worldObj.getBlockState(pos.down()).getValue(BlockLaserPrinter.HALF) == EnumHalf.BOTTOM) {
-				return worldObj.getTileEntity(pos.down()).hasCapability(capability, facing);
 			}
-			else return false;
-		} else if(capability == CapabilityEnergy.ENERGY) {
-			if(worldObj.getBlockState(pos).getValue(BlockLaserPrinter.HALF) == EnumHalf.BOTTOM) {
+			else if(state.getValue(BlockLaserPrinter.HALF) == EnumHalf.TOP) {
+				if(this.worldObj.getBlockState(pos.down()) == ModTutorialBlocks.laserprinter) {
+					return this.worldObj.getTileEntity(pos.down()).hasCapability(capability, facing);
+				}
+			}
+		}	
+		else if(capability == CapabilityEnergy.ENERGY) {
+			if(state.getValue(BlockLaserPrinter.HALF) == EnumHalf.BOTTOM) {
 				return true;
-			} else if(worldObj.getBlockState(pos.down()).getValue(BlockLaserPrinter.HALF) == EnumHalf.BOTTOM) {
-				return worldObj.getTileEntity(pos.down()).hasCapability(capability, facing);
+			}
+			else if(state.getValue(BlockLaserPrinter.HALF) == EnumHalf.TOP) {
+				if(this.worldObj.getBlockState(pos.down()) == ModTutorialBlocks.laserprinter) {
+					return this.worldObj.getTileEntity(pos.down()).hasCapability(capability, facing);
+				}
 			}
 		}
-		
 		return super.hasCapability(capability, facing);
 	}
 	
@@ -511,22 +522,27 @@ Debug.setValue("c5", !isWorking && this.hasMachineEnoughtPowder(RecipesLaserPrin
 	@Override
 	public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
 		if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-			if(worldObj.getBlockState(pos).getValue(BlockLaserPrinter.HALF) == EnumHalf.BOTTOM) {
+			if(state.getValue(BlockLaserPrinter.HALF) == EnumHalf.BOTTOM) {
 				if(facing == null) return (T) inventory;
 				else return (T) inventory.forAutomation();
 			}
-			else {
-				if(worldObj.getBlockState(pos.down()).getValue(BlockLaserPrinter.HALF) == EnumHalf.BOTTOM) {
-					return worldObj.getTileEntity(pos.down()).getCapability(capability, facing);
-				} else return null;
+			else if(state.getValue(BlockLaserPrinter.HALF) == EnumHalf.TOP) {
+				if(this.worldObj.getBlockState(pos.down()) == ModTutorialBlocks.laserprinter) {
+					return this.worldObj.getTileEntity(pos.down()).getCapability(capability, facing);
+				}
 			}
-		} else if(capability == CapabilityEnergy.ENERGY) {
-			if(worldObj.getBlockState(pos).getValue(BlockLaserPrinter.HALF) == EnumHalf.BOTTOM) {
+		}	
+		else if(capability == CapabilityEnergy.ENERGY) {
+			if(state.getValue(BlockLaserPrinter.HALF) == EnumHalf.BOTTOM) {
 				return (T) this.energy;
-			} else if(worldObj.getBlockState(pos.down()).getValue(BlockLaserPrinter.HALF) == EnumHalf.BOTTOM) {
-				return worldObj.getTileEntity(pos.down()).getCapability(capability, facing);
+			}
+			else if(state.getValue(BlockLaserPrinter.HALF) == EnumHalf.TOP) {
+				if(this.worldObj.getBlockState(pos.down()) == ModTutorialBlocks.laserprinter) {
+					return this.worldObj.getTileEntity(pos.down()).getCapability(capability, facing);
+				}
 			}
 		}
+		
 		return super.getCapability(capability, facing);
 	}
 	
