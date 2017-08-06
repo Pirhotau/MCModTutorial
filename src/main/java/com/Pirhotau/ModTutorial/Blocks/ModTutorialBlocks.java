@@ -18,6 +18,7 @@ public final class ModTutorialBlocks {
 	
 	public static Block mineBlock;
 	public static Block titaniumOre;
+	public static Block block16;
 	
 	public static Block piFurnace;
 	public static Block cooker;
@@ -28,6 +29,7 @@ public final class ModTutorialBlocks {
 	public static void createBlocks() {
 		mineBlock = (new BasicBlock("mineblock")).register();
 		titaniumOre = (new BasicBlock("titanium_ore")).register();
+		block16 = (new BasicBlock("block16")).register();
 		
 		piFurnace = (new BlockPifurnace()).register();
 		cooker = (new BlockCooker()).register();

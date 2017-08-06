@@ -12,6 +12,7 @@ public class BlockRenderRegister {
 	public static void registerBlockRenderer() {
 		register(ModTutorialBlocks.mineBlock);
 		register(ModTutorialBlocks.titaniumOre);
+		register(ModTutorialBlocks.block16);
 		
  		register(ModTutorialBlocks.piFurnace);
  		register(ModTutorialBlocks.cooker);

@@ -1,10 +1,16 @@
 {
-  "forge_marker": 1,
-  "defaults": {
-    "model": "modtutorial:energycable"
-  },
-  "variants": {
-    "normal": [{}],
-    "inventory": [{}]
-  }
+    "forge_marker": 1,
+    "defaults": {
+        "model": "modtutorial:energycable_node"
+    },
+    "variants": {
+        "normal": [
+            {
+            }
+        ],
+        "inventory": [
+            {
+            }
+        ]
+    }
 }
