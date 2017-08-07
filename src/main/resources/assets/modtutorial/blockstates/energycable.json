@@ -4,13 +4,30 @@
         "model": "modtutorial:energycable_node"
     },
     "variants": {
-        "normal": [
-            {
-            }
-        ],
-        "inventory": [
-            {
-            }
-        ]
+        "up": {
+            "true": {"submodel": "modtutorial:energycable_cable_top", "x": 0},
+            "false": {}
+        },
+        "down": {
+            "true": {"submodel": "modtutorial:energycable_cable_top", "x": 180},
+            "false": {}
+        },
+        "north": {
+            "true": {"submodel": "modtutorial:energycable_cable", "y": 270},
+            "false": {}
+        },
+        "south": {
+            "true": {"submodel": "modtutorial:energycable_cable", "y": 90},
+            "false": {}
+        },
+        "east": {
+            "true": {"submodel": "modtutorial:energycable_cable", "y": 0},
+            "false": {}
+        },
+        "west": {
+            "true": {"submodel": "modtutorial:energycable_cable", "y": 180},
+            "false": {}
+        },
+        "inventory": [{}]
     }
 }
