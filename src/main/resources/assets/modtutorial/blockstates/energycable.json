@@ -5,27 +5,27 @@
     },
     "variants": {
         "up": {
-            "true": {"submodel": "modtutorial:energycable_cable_top", "x": 0},
+            "true": {"submodel": "modtutorial:energycable_cable"},
             "false": {}
         },
         "down": {
-            "true": {"submodel": "modtutorial:energycable_cable_top", "x": 180},
-            "false": {}
-        },
-        "north": {
-            "true": {"submodel": "modtutorial:energycable_cable", "y": 270},
-            "false": {}
-        },
-        "south": {
-            "true": {"submodel": "modtutorial:energycable_cable", "y": 90},
+            "true": {"submodel": "modtutorial:energycable_cable", "x": 180},
             "false": {}
         },
         "east": {
-            "true": {"submodel": "modtutorial:energycable_cable", "y": 0},
+            "true": {"submodel": "modtutorial:energycable_cable", "y": 90, "x": 90},
+            "false": {}
+        },
+        "south": {
+            "true": {"submodel": "modtutorial:energycable_cable", "y": 180, "x": 90},
             "false": {}
         },
         "west": {
-            "true": {"submodel": "modtutorial:energycable_cable", "y": 180},
+            "true": {"submodel": "modtutorial:energycable_cable", "y": 270, "x": 90},
+            "false": {}
+        },
+        "north": {
+            "true": {"submodel": "modtutorial:energycable_cable", "y": 0, "x": 90},
             "false": {}
         },
         "inventory": [{}]
