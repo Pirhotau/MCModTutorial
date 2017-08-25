@@ -18,6 +18,7 @@ public class BlockRenderRegister {
 		register(ModTutorialBlocks.laserprinter);
 		register(ModTutorialBlocks.infiniteenergyprovider);
 		register(ModTutorialBlocks.energycable);
+		register(ModTutorialBlocks.pulverizer);
 	}
 	
 	public static void register(Block block) {
