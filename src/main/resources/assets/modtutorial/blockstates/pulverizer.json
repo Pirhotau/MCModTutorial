@@ -1,0 +1,14 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"model": "modtutorial:pulverizer"
+	},
+	"variants": {
+		"normal": {"model": "modtutorial:pulverizer", "y": 90},
+		"inventory": {"model": "modtutorial:pulverizer", "y": 90},
+		"facing=north": {"model": "modtutorial:pulverizer"},
+		"facing=south": {"model": "modtutorial:pulverizer", "y": 180},
+		"facing=west": {"model": "modtutorial:pulverizer", "y": 270},
+		"facing=east": {"model": "modtutorial:pulverizer", "y": 90}
+	}
+}

@@ -74,7 +74,7 @@ public class BlockPulverizer extends BlockTileEntity<TileEntityPulverizer> {
 			playerIn.openGui(ModTutorial.instance, ModGuiHandler.PULVERIZER, worldIn, pos.getX(), pos.getY(), pos.getZ());
 		}
 		
-		return super.onBlockActivated(worldIn, pos, state, playerIn, hand, heldItem, side, hitX, hitY, hitZ);
+		return true;
 	}
 	/*
 	 * --------------------------------------------------------------------------

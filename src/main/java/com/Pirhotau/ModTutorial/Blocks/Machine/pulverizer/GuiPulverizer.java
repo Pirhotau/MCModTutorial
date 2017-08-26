@@ -44,11 +44,12 @@ public class GuiPulverizer extends GuiContainer {
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 		GlStateManager.color(1,  1, 1, 1);
 		mc.getTextureManager().bindTexture(BG_TEXTURE);
-		int x = (width - xSize);
-		int y = (height - ySize);
+		int x = (width - xSize)/2;
+		int y = (height - ySize)/2;
+		this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
 		
 		sync ++;
-		sync %= 0;
+		sync %= 10;
 		if(sync == 0) {
 			
 		}
