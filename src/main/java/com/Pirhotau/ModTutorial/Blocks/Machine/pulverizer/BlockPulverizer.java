@@ -1,6 +1,8 @@
 package com.Pirhotau.ModTutorial.Blocks.Machine.pulverizer;
 
 import com.Pirhotau.ModTutorial.Blocks.BlockTileEntity;
+import com.Pirhotau.ModTutorial.Handler.ModGuiHandler;
+import com.Pirhotau.ModTutorial.common.ModTutorial;
 
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyDirection;
@@ -8,8 +10,10 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -58,6 +62,20 @@ public class BlockPulverizer extends BlockTileEntity<TileEntityPulverizer> {
 		worldIn.setBlockState(pos, state.withProperty(FACING,  placer.getHorizontalFacing().getOpposite()));
 	}
 	
+	/*
+	 * --------------------------------------------------------------------------
+	 * 					BLOCK ACTIVATION
+	 * --------------------------------------------------------------------------
+	 */
+	@Override
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
+			EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+		if(!worldIn.isRemote) {
+			playerIn.openGui(ModTutorial.instance, ModGuiHandler.PULVERIZER, worldIn, pos.getX(), pos.getY(), pos.getZ());
+		}
+		
+		return super.onBlockActivated(worldIn, pos, state, playerIn, hand, heldItem, side, hitX, hitY, hitZ);
+	}
 	/*
 	 * --------------------------------------------------------------------------
 	 * 					BREAKING BLOCK
